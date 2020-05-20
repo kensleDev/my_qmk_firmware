@@ -1,105 +1,6 @@
 #include QMK_KEYBOARD_H
 
 
-static bool bsdel_mods = false;
-
-// ---------------------------------------------------------------- Macro Declarations
-enum {
-    COPY = 0,
-    PASTE,
-    CUT,
-    UNDO,
-    REDO,
-    ALL,
-    SAVE,
-    WIN_P,
-    WIN_N,
-    M_BSDEL
-};
-
-
-// ---------------------------------------------------------------- Macro Definitions
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  switch(id) {
-
-    // for more complex macros (want to add modifiers, etc.)
-    case COPY: {
-      if (record->event.pressed) {
-         return MACRO(D(LCTRL), T(C), U(LCTRL), END);
-      }
-    }
-
-    case PASTE: {
-      if (record->event.pressed) {
-        return MACRO(D(LCTRL), T(V), U(LCTRL), END);
-      }
-    }
-
-    case CUT: {
-      if (record->event.pressed) {
-        return MACRO(D(LCTRL), T(X), U(LCTRL), END);
-      }
-    }
-
-    case UNDO: {
-      if (record->event.pressed) {
-        return MACRO(D(LCTRL), T(Z), U(LCTRL), END);
-      }
-    }
-
-    case REDO: {
-      if (record->event.pressed) {
-        return MACRO(D(LCTRL), D(LSHIFT), T(Z), U(LSHIFT), U(LCTRL), END);
-      }
-    }
-
-    case ALL: {
-      if (record->event.pressed) {
-        return MACRO(D(LCTRL), T(A), U(LCTRL), END);
-      }
-    }
-
-    case SAVE: {
-      if (record->event.pressed) {
-        return MACRO(D(LCTRL), T(S), U(LCTRL), END);
-      }
-    }
-
-    case WIN_N: {
-      if (record->event.pressed) {
-        return MACRO(D(LALT), T(ESC), U(LALT), END);
-      }
-    }
-
-    case WIN_P: {
-      if (record->event.pressed) {
-        return MACRO(D(LALT), D(LSHIFT), T(ESC), U(LSHIFT), U(LALT), END);
-      }
-    }
-
-    
-    case M_BSDEL: {
-      uint8_t kc = KC_BSPC;
-
-      if (keyboard_report->mods) {
-        kc = KC_DEL;
-        bsdel_mods = true;
-      } else {
-        bsdel_mods = false;
-      }
-
-      if (record->event.pressed)
-        register_code (kc);
-      else
-        unregister_code (kc);
-    }
-
-
-  }
-  return MACRO_NONE;
-};
-
 // ----------------------------------------------------------------Tap Dance Declarations
 enum {
   TD_COLON_SEMI = 0,
@@ -164,20 +65,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 0
      * ,-----------------------------------------------------------------------------------.
-     * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+     * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
+     * |L1 ESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * |Shift(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   ?  |Shift)|
      * |------+------+------+------+------+------+------+------+------+------+------+------|  
-     * |Ctrl[ |  GUI |  Alt |      |Layer1|    Space    |Layer2|  `   |Quote |   /  |Hyper]|
+     * |Ctrl[ |  GUI |  Alt |      |Layer2|    Space    |Layer2|  `   |Quote |   /  |Hyper]|
      * `-----------------------------------------------------------------------------------'
      */
     [0]   = LAYOUT_planck_mit(
-        KC_TAB,                         KC_Q,    KC_W,    KC_E,       KC_R,  KC_T,   KC_Y,   KC_U,     KC_I,                 KC_O,                  KC_P,                  KC_BSPACE,
-        LT(1, KC_ESCAPE),               KC_A,    KC_S,    KC_D,       KC_F,  KC_G,   KC_H,   KC_J,     KC_K,                 KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-        KC_LSPO, 	                      KC_Z,    KC_X,    KC_C,       KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM,   TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
-        LCTL_T(KC_LEFT_CURLY_BRACE), KC_LGUI, KC_LALT,    _______,   TT(2),     KC_SPC,     TT(2), KC_GRAVE, TD(TD_QUOUTE_DOUBLE),     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
+      KC_TAB,                         KC_Q,    KC_W,    KC_E,       KC_R,  KC_T,   KC_Y,   KC_U,     KC_I,                 KC_O,                  KC_P,                  KC_BSPACE,
+      LT(1, KC_ESCAPE),               KC_A,    KC_S,    KC_D,       KC_F,  KC_G,   KC_H,   KC_J,     KC_K,                 KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
+      KC_LSPO, 	                      KC_Z,    KC_X,    KC_C,       KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM,   TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
+      LCTL_T(KC_LEFT_CURLY_BRACE), KC_LGUI, KC_LALT,    _______,   TT(2),     KC_SPC,     TT(2), KC_GRAVE, TD(TD_QUOUTE_DOUBLE),     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
     ), 
 
 
@@ -185,19 +86,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * ,-----------------------------------------------------------------------------------.
     * |      | ENTER| !+ESC| !ESC |  ^L  |  ^W  |      | HOME | PGDN | PGUP | END  |DELETE|
     * |------+------+------+------+------+------+-------------+------+------+------+------|
-    * |      | ^A   |  ^S  |  DEL | BKSP |      |      | LEFT | DOWN | UP   | RIGHT|      |
+    * |      | ^A   |  ^S  |  DEL | BKSP |  ^P  |      | LEFT | DOWN | UP   | RIGHT|  RUN |
     * |------+------+------+------+------+------+------|------+------+------+------+------|
-    * |      | ^Z   | ^X   | ^C   | ^V   |      |      |      |      |      |      |      |
+    * |      | ^Z   | ^X   | ^C   | ^V   | ^+W  |      |      |      |      |      |      |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * | RESET| ^+Z  |      |      |      |      |      |      |      |      |      |      |
     * `-----------------------------------------------------------------------------------'
     */
     [1] = LAYOUT_planck_mit(
-       _______, KC_ENTER, M(WIN_P),  M(WIN_N),   _______, _______, _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END, KC_DELETE,
-       _______,   M(ALL),  M(SAVE), KC_DELETE, KC_BSPACE, _______, _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT,   _______,
-       _______,  M(UNDO),   M(CUT),   M(COPY),  M(PASTE), _______, _______, _______,   _______, _______,  _______,   _______,
-         RESET,  M(REDO),  _______,   _______,   _______,      _______,      _______,  _______, _______,  _______,   _______ 
-    ),
+      _______,         KC_ENTER, LALT(LSFT(KC_ESC)), LALT(KC_ESC),  LCTL(KC_L),       LCTL(KC_T), _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END, KC_DELETE,
+      _______,       LCTL(KC_A),         LCTL(KC_S),    KC_DELETE,   KC_BSPACE,       LCTL(KC_P), _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LALT(KC_SPACE),
+      _______,       LCTL(KC_Z),         LCTL(KC_X),   LCTL(KC_C),  LCTL(KC_V), LCTL(LSFT(KC_P)), _______, _______,   _______, _______,  _______, _______,
+        RESET, LCTL(LSFT(KC_Z)),            _______,      _______,     _______,          _______,          _______,   _______, _______,  _______, _______ 
+    ),   
 
     /* Layer 2
     * ,-----------------------------------------------------------------------------------.
@@ -208,16 +109,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |      |  F4  |  F5  |  F6  |      |   #  |   ^  |      |   1  |   2  |  3   |   *  |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * |      |  F1  |  F2  |  F3  |      |      |      |      |   0  |   .  |   =  |   /  |
-    * `-----------------------------------------------------------------------------------'
+    * `-----------------------------------------------------------------------------------' 
     */
     [2] = LAYOUT_planck_mit(
-       _______, KC_F10, KC_F11, KC_F12, _______,    KC_EXCLAIM,     KC_DOLLAR, _______, KC_7,   KC_8,         KC_9,     KC_KP_PLUS,
-       _______, KC_F7,   KC_F8,  KC_F9, _______,      KC_QUOTE,    KC_PERCENT, _______, KC_4,   KC_5,         KC_6,    KC_KP_MINUS,
-       _______, KC_F4,   KC_F5,  KC_F6, _______, KC_NONUS_HASH, KC_CIRCUMFLEX, _______, KC_1,   KC_2,         KC_3, KC_KP_ASTERISK,
-       _______, KC_F1,   KC_F2,  KC_F3, _______,            _______,           _______, KC_0, KC_DOT,  KC_KP_EQUAL,    KC_KP_SLASH
+      _______, KC_F10, KC_F11, KC_F12, _______,    KC_EXCLAIM,     KC_DOLLAR, _______, KC_7,   KC_8,         KC_9,     KC_KP_PLUS,
+      _______, KC_F7,   KC_F8,  KC_F9, _______,      KC_QUOTE,    KC_PERCENT, _______, KC_4,   KC_5,         KC_6,    KC_KP_MINUS,
+      _______, KC_F4,   KC_F5,  KC_F6, _______, KC_NONUS_HASH, KC_CIRCUMFLEX, _______, KC_1,   KC_2,         KC_3, KC_KP_ASTERISK,
+      _______, KC_F1,   KC_F2,  KC_F3, _______,            _______,           _______, KC_0, KC_DOT,  KC_KP_EQUAL,    KC_KP_SLASH
     )    
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // /*----------------------------------------------------------------Leader Layer ()
@@ -286,3 +204,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //        _______,    _______,  _______,   KC_KP_SLASH, KC_KP_ASTERISK,         KC_LBRACKET,          KC_RBRACKET, KC_KP_PLUS, KC_MINUS,   KC_KP_DOT,       _______, _______,
 //        _______,    _______,  _______,       _______,        _______,                  _______,         _______,    _______,  _______,     _______,       KC_GRV
 //     )   */
+
+// 
+// static bool bsdel_mods = false;
+
+
+// // ---------------------------------------------------------------- Macro Declarations
+// enum {
+//     COPY = 0,
+//     REDO,
+//     M_BSDEL
+// };
+
+
+// // ---------------------------------------------------------------- Macro Definitions
+// const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+// {
+//   switch(id) {
+
+//     case REDO: {
+//       if (record->event.pressed) {
+//         return MACRO(D(LCTRL), D(LSHIFT), T(Z), U(LSHIFT), U(LCTRL), END);
+//       }
+//     }
+
+    
+//     case M_BSDEL: {
+//       uint8_t kc = KC_BSPC;
+
+//       if (keyboard_report->mods) {
+//         kc = KC_DEL;
+//         bsdel_mods = true;
+//       } else {
+//         bsdel_mods = false;
+//       }
+
+//       if (record->event.pressed)
+//         register_code (kc);
+//       else
+//         unregister_code (kc);
+//     }
+
+
+//   }
+//   return MACRO_NONE;
+// };
