@@ -76,10 +76,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */  
     [0] = LAYOUT_planck_mit(
-      KC_TAB,                                    KC_Q,    KC_W,     KC_E,  KC_R,  KC_T,   KC_Y,   KC_U,     KC_I,                 KC_O,                  KC_P,                  KC_BSPACE,
-      LT(1, KC_ESCAPE),                          KC_A,    KC_S,     KC_D,  KC_F,  KC_G,   KC_H,   KC_J,     KC_K,                 KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-      KC_LSPO, 	                                 KC_Z,    KC_X,     KC_C,  KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM,   TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
-      LCTL_T(KC_LEFT_CURLY_BRACE), TD(TD_MINUS_UNDER), KC_LGUI,  KC_LALT, TT(2),     KC_SPC,     TT(2), KC_GRAVE, TD(TD_QUOUTE_DOUBLE),     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
+      KC_TAB,                                    KC_Q,    KC_W,          KC_E,  KC_R,  KC_T,   KC_Y,   KC_U,     KC_I,                 KC_O,                  KC_P,                  KC_BSPACE,
+      LT(1, KC_ESCAPE),                          KC_A,    KC_S,          KC_D,  KC_F,  KC_G,   KC_H,   KC_J,     KC_K,                 KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
+      KC_LSPO, 	                                 KC_Z,    KC_X,          KC_C,  KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM,   TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
+      LCTL_T(KC_LEFT_CURLY_BRACE), TD(TD_MINUS_UNDER), KC_LGUI, OSM(MOD_LALT), TT(2),     KC_SPC,     TT(2), KC_GRAVE, TD(TD_QUOUTE_DOUBLE),     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
     ), 
 
 
