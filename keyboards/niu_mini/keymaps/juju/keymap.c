@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 // ----------------------------------------------------------------Layer Declarations
-enum my_layers {
+enum layers {
   _MAIN_WIN,
   _MAIN_MAC,
   _NAV_WIN,
@@ -9,31 +9,156 @@ enum my_layers {
   _NUM_SYM
 };
 
-enum my_keycodes {
+enum keycodes {
   WIN = SAFE_RANGE,
   MAC
 };
 
+// ----------------------------------------------------------------Tap Dance Funcs
+// void quoter (qk_tap_dance_state_t *state, void *user_data) {
+//     if (state->count == 1) {
+//       tap_code(KC_QUOTE);
+//     } else if (state->count == 2) {
+//       tap_code(KC_DOUBLE_QUOTE);
+//     } else if (state->count == 3) {
+//       tap_code(KC_GRAVE);
+//     } else {
+//       reset_tap_dance (state);
+//     }
+// }
 
 // ----------------------------------------------------------------Tap Dance Declarations
 enum {
   TD_COLON_SEMI = 0,
-  TD_QUOUTE_DOUBLE,
+  TD_QUOTER,
   TD_SLASH_QUESTION,
   TD_DOT_EXCLAIM,
   TD_SLASH_PIPE,
-  TD_MINUS_UNDER
+  TD_MINUS_UNDER,
+  TD_AT_GRAVE,
+  TD_PERC_DOLLA,
+  TD_HASH_CARROT
 };
 
 // ---------------------------------------------------------------- Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_COLON_SEMI]  = ACTION_TAP_DANCE_DOUBLE(KC_COLON, KC_SCOLON),
-  [TD_QUOUTE_DOUBLE]  = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DOUBLE_QUOTE),
-  [TD_SLASH_QUESTION]  = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_QUESTION),
-  [TD_DOT_EXCLAIM]  = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_EXCLAIM),
-  [TD_SLASH_PIPE]  = ACTION_TAP_DANCE_DOUBLE(KC_BSLASH, KC_PIPE),
-  [TD_MINUS_UNDER]  = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_UNDERSCORE),
+  [TD_COLON_SEMI] = ACTION_TAP_DANCE_DOUBLE(KC_COLON, KC_SCOLON),
+  [TD_QUOTER] = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DOUBLE_QUOTE), 
+  [TD_SLASH_QUESTION] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_QUESTION),
+  [TD_DOT_EXCLAIM] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_EXCLAIM),
+  [TD_SLASH_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_BSLASH, KC_PIPE),
+  [TD_MINUS_UNDER] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_UNDERSCORE),
+  [TD_AT_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_AT, KC_GRAVE),
+  [TD_PERC_DOLLA] = ACTION_TAP_DANCE_DOUBLE(KC_PERC, KC_DOLLAR),
+  [TD_HASH_CARROT] = ACTION_TAP_DANCE_DOUBLE(KC_HASH, KC_CIRC),
+
+
 };
+
+
+
+// ----------------------------------------------------------------Layers
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+    /* -------------------- WIN ------------------- */
+
+    /* 
+    * ,-----------------------------------------------------------------------------------.
+    * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+    * |------+------+------+------+------+-------------+------+------+------+------+------|
+    * |L1 ESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
+    * |------+------+------+------+------+------|------+------+------+------+------+------|
+    * |Shift(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift)|
+    * |------+------+------+------+------+------+------+------+------+------+------+------|  
+    * |Ctrl[ |      |  GUI |  Alt |Layer2|    Space    |Layer2|      |      |   \  |Hyper]|
+    * `-----------------------------------------------------------------------------------'
+    */ 
+    [_MAIN_WIN] = LAYOUT_planck_mit(
+      KC_TAB,                         KC_Q,    KC_W,          KC_E,         KC_R,  KC_T,   KC_Y,          KC_U,     KC_I,               KC_O,                  KC_P,                  KC_BSPACE,
+      LT(_NAV_WIN, KC_ESCAPE),        KC_A,    KC_S,          KC_D,         KC_F,  KC_G,   KC_H,          KC_J,     KC_K,               KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
+      KC_LSPO, 	                      KC_Z,    KC_X,          KC_C,         KC_V,  KC_B,   KC_N,          KC_M,  KC_COMM, TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
+      LCTL_T(KC_LEFT_CURLY_BRACE), _______, KC_LGUI, OSM(MOD_LALT), TT(_NUM_SYM),     KC_SPC,     TT(_NUM_SYM),  _______,            _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
+    ), 
+
+    /* 
+    * ,-----------------------------------------------------------------------------------.
+    * |      | ENTER| !+ESC| !ESC |  ^L  |  ^W  |      | HOME | PGDN | PGUP | END  |DELETE|
+    * |------+------+------+------+------+------+-------------+------+------+------+------| 
+    * |      | ^A   |  ^S  |  DEL | BKSP |  ^F  |      | LEFT | DOWN | UP   | RIGHT|  RUN |
+    * |------+------+------+------+------+------+------|------+------+------+------+------|
+    * |      | ^Z   | ^X   | ^C   | ^V   | ^+P  |      |      |      |      |      |      |
+    * |------+------+------+------+------+------+------+------+------+------+------+------|
+    * | RESET| ^+Z  |      |      |      |     ^P      |      |      |      |      |      |
+    * `-----------------------------------------------------------------------------------'
+    */
+    [_NAV_WIN] = LAYOUT_planck_mit(
+      _______,         KC_ENTER, LALT(LSFT(KC_ESC)), LALT(KC_ESC),  LCTL(KC_L),       LCTL(KC_W),     _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END,      KC_DELETE,
+      _______,       LCTL(KC_A),         LCTL(KC_S),    KC_DELETE,   KC_BSPACE,       LCTL(KC_F),     _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LALT(KC_SPACE),
+      _______,       LCTL(KC_Z),         LCTL(KC_X),   LCTL(KC_C),  LCTL(KC_V), LCTL(LSFT(KC_P)),     _______, _______,   _______, _______,  _______,        _______,
+        RESET, LCTL(LSFT(KC_Z)),            _______,      _______,     _______,                 LCTL(KC_P),    _______,   _______, _______, _______,         _______ 
+    ),   
+
+    /* -------------------- MAC ------------------- */
+
+    /* Layer 0
+    * ,-----------------------------------------------------------------------------------.
+    * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+    * |------+------+------+------+------+-------------+------+------+------+------+------|
+    * |L1 ESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
+    * |------+------+------+------+------+------|------+------+------+------+------+------|
+    * |Shift(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift)|
+    * |------+------+------+------+------+------+------+------+------+------+------+------|  
+    * |Ctrl[ |      |  GUI |  Alt |Layer2|    Space    |Layer2|      |      |   \  |Hyper]|
+    * `-----------------------------------------------------------------------------------'
+    */  
+    [_MAIN_MAC] = LAYOUT_planck_mit(
+      KC_TAB,                         KC_Q,          KC_W, KC_E,            KC_R,  KC_T,   KC_Y,          KC_U,    KC_I,               KC_O,                  KC_P,                  KC_BSPACE,
+      LT(_NAV_MAC, KC_ESCAPE),        KC_A,          KC_S, KC_D,            KC_F,  KC_G,   KC_H,          KC_J,    KC_K,               KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
+      KC_LSPO, 	                      KC_Z,          KC_X, KC_C,            KC_V,  KC_B,   KC_N,          KC_M, KC_COMM, TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
+      LCTL_T(KC_LEFT_CURLY_BRACE), _______, OSM(MOD_LALT), KC_LGUI, TT(_NUM_SYM),     KC_SPC,     TT(_NUM_SYM), _______,            _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
+    ), 
+
+    /* 
+    * ,-----------------------------------------------------------------------------------.
+    * |      | ENTER| !+ESC| !ESC |  ^L  |  ^W  |      | HOME | PGDN | PGUP | END  |DELETE|
+    * |------+------+------+------+------+------+-------------+------+------+------+------| 
+    * |      | ^A   |  ^S  |  DEL | BKSP |  ^F  |      | LEFT | DOWN | UP   | RIGHT|  RUN |
+    * |------+------+------+------+------+------+------|------+------+------+------+------|
+    * |      | ^Z   | ^X   |  ^C  | ^V   | ^+P  |      |      |      |      |      |      |
+    * |------+------+------+------+------+------+------+------+------+------+------+------|
+    * | RESET| ^+Z  |      |      |      |     ^P      |      |      |      |      |      |
+    * `-----------------------------------------------------------------------------------'
+    */
+    [_NAV_MAC] = LAYOUT_planck_mit(
+      _______,         KC_ENTER, LGUI(LSFT(KC_TAB)), LGUI(KC_TAB),  LGUI(KC_L),       LGUI(KC_W),      _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END,      KC_DELETE,
+      _______,       LGUI(KC_A),         LGUI(KC_S),    KC_DELETE,   KC_BSPACE,       LGUI(KC_F),      _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LALT(KC_SPACE),
+      _______,       LGUI(KC_Z),         LGUI(KC_X),   LGUI(KC_C),  LGUI(KC_V), LGUI(LSFT(KC_P)),      _______, _______,   _______, _______, _______,        _______,
+        RESET, LCTL(LSFT(KC_Z)),            _______,      _______,     _______,              LGUI(KC_P),        _______,   _______, _______, _______,        _______ 
+    ),
+
+    /* -------------------- SYM ------------------- */
+
+    /*
+    * ,-----------------------------------------------------------------------------------.
+    * |  WIN |  F10  | F11 |  F12 |      |      |      |  *   |   7  |   8  |  9   | BSPA |
+    * |------+------+------+------+------+-------------+------+------+------+------+------|
+    * |  MAC |  F7  |  F8  |  F9  |      |  #/^ |  %/$ |  -   |   4  |   5  |  6   |Enter |
+    * |------+------+------+------+------+------|------+------+------+------+------+------|
+    * |      |  F4  |  F5  |  F6  |  @/` |  -/_ |  '/" |  +   |   1  |   2  |  3   |      |
+    * |------+------+------+------+------+------+------+------+------+------+------+------|
+    * |      |  F1  |  F2  |  F3  |      |  backspace  |      |   0  |   .  |   =  |   /  |
+    * `-----------------------------------------------------------------------------------' 
+    */
+    [_NUM_SYM] = LAYOUT_planck_mit(
+          WIN, KC_F10, KC_F11, KC_F12,         _______,           _______,            _______, KC_KP_ASTERISK,  KC_7,   KC_8,        KC_9,   KC_BSPACE, 
+          MAC, KC_F7,   KC_F8,  KC_F9,         _______, TD(TD_HASH_CARROT), TD(TD_PERC_DOLLA),    KC_KP_MINUS,  KC_4,   KC_5,        KC_6,    KC_ENTER,
+      _______, KC_F4,   KC_F5,  KC_F6, TD(TD_AT_GRAVE), TD(TD_MINUS_UNDER),     TD(TD_QUOTER),     KC_KP_PLUS,  KC_1,   KC_2,        KC_3,     _______, 
+      _______, KC_F1,   KC_F2,  KC_F3,         _______,                KC_BSPACE,                     _______,  KC_0, KC_DOT, KC_KP_EQUAL, KC_KP_SLASH
+    )
+
+};
+
 
 // ----------------------------------------------------------------
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -41,20 +166,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case (WIN):
         if (record->event.pressed) {
           print("mode just switched to windows\n");
-          set_single_persistent_default_layer(_WIN_MAIN);
+          set_single_persistent_default_layer(_MAIN_WIN);
         }
         return false;
         break;
       case MAC:
         if (record->event.pressed) {
           print("mode just switched to mac\n");
-          set_single_persistent_default_layer(_MAC_MAIN);
+          set_single_persistent_default_layer(_MAIN_MAC);
         }
         return false;
         break;
-      return true;
 
     }
+      return true;
+
 }
 
 void led_set_user(uint8_t usb_led) {
@@ -90,109 +216,6 @@ void led_set_user(uint8_t usb_led) {
     }
 
 }
-
-// ----------------------------------------------------------------Layers
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    /* Layer 0
-     * ,-----------------------------------------------------------------------------------.
-     * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
-     * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * |L1 ESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
-     * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |Shift(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift)|
-     * |------+------+------+------+------+------+------+------+------+------+------+------|  
-     * |Ctrl[ |   -  |  GUI |  Alt |Layer2|    Space    |Layer2|  `   |Quote |   \  |Hyper]|
-     * `-----------------------------------------------------------------------------------'
-     */  
-    [_MAIN_WIN] = LAYOUT_planck_mit(
-      KC_TAB,                                    KC_Q,    KC_W,          KC_E,         KC_R,  KC_T,   KC_Y,          KC_U,     KC_I,                 KC_O,                  KC_P,                  KC_BSPACE,
-      LT(1, KC_ESCAPE),                          KC_A,    KC_S,          KC_D,         KC_F,  KC_G,   KC_H,          KC_J,     KC_K,                 KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-      KC_LSPO, 	                                 KC_Z,    KC_X,          KC_C,         KC_V,  KC_B,   KC_N,          KC_M,  KC_COMM,   TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
-      LCTL_T(KC_LEFT_CURLY_BRACE), TD(TD_MINUS_UNDER), KC_LGUI, OSM(MOD_LALT), TT(_NAV_WIN),     KC_SPC,     TT(_NAV_WIN), KC_GRAVE, TD(TD_QUOUTE_DOUBLE),     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
-    ), 
-
-     /* Layer 0
-     * ,-----------------------------------------------------------------------------------.
-     * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
-     * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * |L1 ESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
-     * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |Shift(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift)|
-     * |------+------+------+------+------+------+------+------+------+------+------+------|  
-     * |Ctrl[ |   -  |  GUI |  Alt |Layer2|    Space    |Layer2|  `   |Quote |   \  |Hyper]|
-     * `-----------------------------------------------------------------------------------'
-     */  
-    [_MAIN_MAC] = LAYOUT_planck_mit(
-      KC_TAB,                                    KC_Q,    KC_W,          KC_E,         KC_R,  KC_T,   KC_Y,          KC_U,     KC_I,                 KC_O,                  KC_P,                  KC_BSPACE,
-      LT(1, KC_ESCAPE),                          KC_A,    KC_S,          KC_D,         KC_F,  KC_G,   KC_H,          KC_J,     KC_K,                 KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-      KC_LSPO, 	                                 KC_Z,    KC_X,          KC_C,         KC_V,  KC_B,   KC_N,          KC_M,  KC_COMM,   TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
-      LCTL_T(KC_LEFT_CURLY_BRACE), TD(TD_MINUS_UNDER), KC_LGUI, OSM(MOD_LALT), TT(_NAV_MAC),     KC_SPC,     TT(_NAV_MAC), KC_GRAVE, TD(TD_QUOUTE_DOUBLE),     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
-    ), 
-
-
-
-    /* 
-    * ,-----------------------------------------------------------------------------------.
-    * |      | ENTER| !+ESC| !ESC |  ^L  |  ^W  |      | HOME | PGDN | PGUP | END  |DELETE|
-    * |------+------+------+------+------+------+-------------+------+------+------+------| 
-    * |      | ^A   |  ^S  |  DEL | BKSP |  ^F  |      | LEFT | DOWN | UP   | RIGHT|  RUN |
-    * |------+------+------+----- -+------+------+------|------+------+------+------+------|
-    * |      | ^Z   | ^X   | ^C   | ^V   | ^+P  |      |      |      |      |      |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * | RESET| ^+Z  |      |      |      |     ^P      |      |      |      |      |      |
-    * `-----------------------------------------------------------------------------------'
-    */
-    [_NAV_WIN] = LAYOUT_planck_mit(
-      _______,         KC_ENTER, LALT(LSFT(KC_ESC)), LALT(KC_ESC),  LCTL(KC_L),       LCTL(KC_W), _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END,      KC_DELETE,
-      _______,       LCTL(KC_A),         LCTL(KC_S),    KC_DELETE,   KC_BSPACE,       LCTL(KC_F), _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LALT(KC_SPACE),
-      _______,       LCTL(KC_Z),         LCTL(KC_X),   LCTL(KC_C),  LCTL(KC_V), LCTL(LSFT(KC_P)), _______, _______,   _______, _______,  _______,        _______,
-        RESET, LCTL(LSFT(KC_Z)),            _______,      _______,     _______,            LCTL(KC_P),     _______,   _______, _______,  _______,        _______ 
-    ),   
-
-    /* 
-    * ,-----------------------------------------------------------------------------------.
-    * |      | ENTER| !+ESC| !ESC |  ^L  |  ^W  |      | HOME | PGDN | PGUP | END  |DELETE|
-    * |------+------+------+------+------+------+-------------+------+------+------+------| 
-    * |      | ^A   |  ^S  |  DEL | BKSP |  ^F  |      | LEFT | DOWN | UP   | RIGHT|  RUN |
-    * |------+------+------+----- -+------+------+------|------+------+------+------+------|
-    * |      | ^Z   | ^X   | ^C   | ^V   | ^+P  |      |      |      |      |      |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * | RESET| ^+Z  |      |      |      |     ^P      |      |      |      |      |      |
-    * `-----------------------------------------------------------------------------------'
-    */
-    [_NAV_MAC] = LAYOUT_planck_mit(
-      _______,         KC_ENTER, LALT(LSFT(KC_ESC)), LALT(KC_ESC),  LCTL(KC_L),       LCTL(KC_W), _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END,      KC_DELETE,
-      _______,       LCTL(KC_A),         LCTL(KC_S),    KC_DELETE,   KC_BSPACE,       LCTL(KC_F), _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LALT(KC_SPACE),
-      _______,       LCTL(KC_Z),         LCTL(KC_X),   LCTL(KC_C),  LCTL(KC_V), LCTL(LSFT(KC_P)), _______, _______,   _______, _______,  _______,        _______,
-        RESET, LCTL(LSFT(KC_Z)),            _______,      _______,     _______,            LCTL(KC_P),     _______,   _______, _______,  _______,        _______ 
-    ),   
-
-
-    /* 
-    * ,-----------------------------------------------------------------------------------.
-    * |  WIN |  F10  | F11 |  F12 |      |   #  |   $  |  *   |   7  |   8  |  9   | BSPA |
-    * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * |  MAC |  F7  |  F8  |  F9  |      |   ^  |   %  |  -   |   4  |   5  |  6   |Enter |
-    * |------+------+------+------+------+------|------+------+------+------+------+------|
-    * |      |  F4  |  F5  |  F6  |      |      |      |  +   |   1  |   2  |  3   |      |
-    * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |  F1  |  F2  |  F3  |      |      |      |      |   0  |   .  |   =  |   /  |
-    * `-----------------------------------------------------------------------------------' 
-    */
-    [_NUM_SYM] = LAYOUT_planck_mit(
-          WIN, KC_F10, KC_F11, KC_F12, _______, KC_NONUS_HASH,  KC_DOLLAR,     KC_KP_PLUS,  KC_7,   KC_8,        KC_9,   KC_BSPACE, 
-          MAC, KC_F7,   KC_F8,  KC_F9, _______, KC_CIRCUMFLEX, KC_PERCENT,    KC_KP_MINUS,  KC_4,   KC_5,        KC_6,    KC_ENTER,
-      _______, KC_F4,   KC_F5,  KC_F6, _______,       _______,    _______, KC_KP_ASTERISK,  KC_1,   KC_2,        KC_3,     _______, 
-      _______, KC_F1,   KC_F2,  KC_F3, _______,            _______,               _______,  KC_0, KC_DOT, KC_KP_EQUAL, KC_KP_SLASH
-    )
-
-};
-
-
-
-
 
 
 
