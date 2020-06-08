@@ -25,7 +25,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-
+    
 void led_set_user(uint8_t usb_led) {
 
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
@@ -76,10 +76,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */  
     [0] = LAYOUT_planck_mit(
-      KC_TAB,                                    KC_Q,    KC_W,          KC_E,  KC_R,  KC_T,   KC_Y,   KC_U,     KC_I,                 KC_O,                  KC_P,                  KC_BSPACE,
-      LT(1, KC_ESCAPE),                          KC_A,    KC_S,          KC_D,  KC_F,  KC_G,   KC_H,   KC_J,     KC_K,                 KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-      KC_LSPO, 	                                 KC_Z,    KC_X,          KC_C,  KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM,   TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
-      LCTL_T(KC_LEFT_CURLY_BRACE), TD(TD_MINUS_UNDER), KC_LGUI, OSM(MOD_LALT), TT(2),     KC_SPC,     TT(2), KC_GRAVE, TD(TD_QUOUTE_DOUBLE),     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
+      KC_TAB,                                    KC_Q,    KC_W,          KC_E,  KC_R,  KC_T,   KC_Y,   KC_U,     KC_I,    KC_O,                  KC_P,                  KC_BSPACE,
+      LT(1, KC_ESCAPE),                          KC_A,    KC_S,          KC_D,  KC_F,  KC_G,   KC_H,   KC_J,     KC_K,    KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
+      KC_LSPO, 	                                 KC_Z,    KC_X,          KC_C,  KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM,  KC_DOT, TD(TD_SLASH_QUESTION),                    KC_RSPC,
+      LCTL_T(KC_LEFT_CURLY_BRACE), TD(TD_MINUS_UNDER), KC_LGUI, OSM(MOD_LALT), TT(2),     KC_SPC,     TT(2), KC_GRAVE, _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
     ), 
 
 
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |------+------+------+------+------+-------------+------+------+------+------+------|
     * |      |  F7  |  F8  |  F9  |      |   ^  |   %  |  -   |   4  |   5  |  6   |Enter |
     * |------+------+------+------+------+------|------+------+------+------+------+------|
-    * |      |  F4  |  F5  |  F6  |      |      |      |  +   |   1  |   2  |  3   |      |
+    * |      |  F4  |  F5  |  F6  |      |   {  |   }  |  +   |   1  |   2  |  3   |      |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * |      |  F1  |  F2  |  F3  |      |      |      |      |   0  |   .  |   =  |   /  |
     * `-----------------------------------------------------------------------------------' 
