@@ -76,10 +76,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */ 
     [_MAIN_WIN] = LAYOUT_planck_mit(
-      KC_TAB,                         KC_Q,    KC_W,          KC_E,         KC_R,  KC_T,   KC_Y,          KC_U,     KC_I,               KC_O,                  KC_P,                  KC_BSPACE,
-      LT(_NAV_WIN, KC_ESCAPE),        KC_A,    KC_S,          KC_D,         KC_F,  KC_G,   KC_H,          KC_J,     KC_K,               KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-      KC_LSPO, 	                      KC_Z,    KC_X,          KC_C,         KC_V,  KC_B,   KC_N,          KC_M,  KC_COMM, TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
-      LCTL_T(KC_LEFT_CURLY_BRACE), _______, KC_LGUI, OSM(MOD_LALT),    OSL(_SYM),    KC_SPC,      TT(_NUM_PADS),  _______,            _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
+      KC_TAB,                         KC_Q,    KC_W,          KC_E,         KC_R,  KC_T,   KC_Y,          KC_U,     KC_I,    KC_O,                  KC_P,                  KC_BSPACE,
+      LT(_NAV_WIN, KC_ESCAPE),        KC_A,    KC_S,          KC_D,         KC_F,  KC_G,   KC_H,          KC_J,     KC_K,    KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
+      KC_LSPO, 	                      KC_Z,    KC_X,          KC_C,         KC_V,  KC_B,   KC_N,          KC_M,  KC_COMM,  KC_DOT, TD(TD_SLASH_QUESTION),                    KC_RSPC,
+      LCTL_T(KC_LEFT_CURLY_BRACE), _______, KC_LGUI, OSM(MOD_LALT),    OSL(_SYM),    KC_SPC,      TT(_NUM_PADS),  _______, _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
     ), 
     /* 
     * ,-----------------------------------------------------------------------------------.
@@ -113,10 +113,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */  
     [_MAIN_MAC] = LAYOUT_planck_mit(
-      KC_TAB,                         KC_Q,          KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,          KC_U,     KC_I,               KC_O,                  KC_P,                  KC_BSPACE,
-      LT(_NAV_MAC, KC_ESCAPE),        KC_A,          KC_S,    KC_D,      KC_F,  KC_G,   KC_H,          KC_J,     KC_K,               KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-      KC_LSPO, 	                      KC_Z,          KC_X,    KC_C,      KC_V,  KC_B,   KC_N,          KC_M,  KC_COMM, TD(TD_DOT_EXCLAIM), TD(TD_SLASH_QUESTION),                    KC_RSPC,
-      LCTL_T(KC_LEFT_CURLY_BRACE), _______, OSM(MOD_LALT), KC_LGUI, OSL(_SYM),     KC_SPC,    OSL(_NUM_PADS), _______,            _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
+      KC_TAB,                         KC_Q,          KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,          KC_U,     KC_I,    KC_O,                  KC_P,                  KC_BSPACE,
+      LT(_NAV_MAC, KC_ESCAPE),        KC_A,          KC_S,    KC_D,      KC_F,  KC_G,   KC_H,          KC_J,     KC_K,    KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
+      KC_LSPO, 	                      KC_Z,          KC_X,    KC_C,      KC_V,  KC_B,   KC_N,          KC_M,  KC_COMM,  KC_DOT, TD(TD_SLASH_QUESTION),                    KC_RSPC,
+      LCTL_T(KC_LEFT_CURLY_BRACE), _______, OSM(MOD_LALT), KC_LGUI, OSL(_SYM),     KC_SPC,    OSL(_NUM_PADS), _______, _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
     ), 
 
     /* 
@@ -141,19 +141,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
     * ,-----------------------------------------------------------------------------------.
-    * |      |  F10  | F11 |  F12 |      |      |      |  7   |   8  |   9  |  +   | BSPA |
+    * |      |  F10  | F11 |  F12 |      |   [  |   ]  |  7   |   8  |   9  |  +   | BSPA |
     * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * |      |  F7  |  F8  |  F9  |      |      |      |  4   |   5  |   6  |  -   |Enter |
+    * |      |  F7  |  F8  |  F9  |      |   (  |   )  |  4   |   5  |   6  |  -   |Enter |
     * |------+------+------+------+------+------|------+------+------+------+------+------|
-    * |      |  F4  |  F5  |  F6  |      |      |      |  1   |   2  |   3  |  *   |      |
+    * |      |  F4  |  F5  |  F6  |      |   {  |   }  |  1   |   2  |   3  |  *   |      |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * |      |  F1  |  F2  |  F3  |      |  backspace  |      |   0  |   .  |  /   |  =   |
     * `-----------------------------------------------------------------------------------' 
     */
     [_NUM_PADS] = LAYOUT_planck_mit(
-      _______, KC_F10, KC_F11, KC_F12, _______, _______, _______,    KC_7,  KC_8,   KC_9, KC_PPLS, KC_BSPACE, 
-      _______, KC_F7,   KC_F8,  KC_F9, _______, _______, _______,    KC_4,  KC_5,   KC_6, KC_PMNS,  KC_ENTER,
-      _______, KC_F4,   KC_F5,  KC_F6, _______, _______, _______,    KC_1,  KC_2,   KC_3, KC_PAST,   _______, 
+      _______, KC_F10, KC_F11, KC_F12, _______, KC_LBRC, KC_RBRC,    KC_7,  KC_8,   KC_9, KC_PPLS, KC_BSPACE, 
+      _______, KC_F7,   KC_F8,  KC_F9, _______, KC_LPRN, KC_RPRN,    KC_4,  KC_5,   KC_6, KC_PMNS,  KC_ENTER,
+      _______, KC_F4,   KC_F5,  KC_F6, _______, KC_LCBR, KC_RCBR,    KC_1,  KC_2,   KC_3, KC_PAST,   _______, 
       _______, KC_F1,   KC_F2,  KC_F3, _______,     KC_BSPACE,    _______,  KC_0, KC_DOT, KC_PSLS,    KC_PEQL
     ),
 
