@@ -52,11 +52,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_AT_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_AT, KC_GRAVE),
   [TD_PERC_DOLLA] = ACTION_TAP_DANCE_DOUBLE(KC_PERC, KC_DOLLAR),
   [TD_HASH_CARROT] = ACTION_TAP_DANCE_DOUBLE(KC_HASH, KC_CIRC),
-
-
 };
-
-
 
 // ----------------------------------------------------------------Layers
 
@@ -72,14 +68,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |------+------+------+------+------+------|------+------+------+------+------+------|
     * |Shift(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift)|
     * |------+------+------+------+------+------+------+------+------+------+------+------|  
-    * |Ctrl[ |      |  GUI |  Alt |Layer2|    Space    |numpds|      |      |   \  |Hyper]|
+    * |Ctrl  |      |  GUI |  Alt |Layer2|    Space    |numpds|      |      |   \  |CTRL  |
     * `-----------------------------------------------------------------------------------'
     */ 
     [_MAIN_WIN] = LAYOUT_planck_mit(
-      KC_TAB,                         KC_Q,    KC_W,          KC_E,         KC_R,  KC_T,   KC_Y,          KC_U,     KC_I,    KC_O,                  KC_P,                  KC_BSPACE,
-      LT(_NAV_WIN, KC_ESCAPE),        KC_A,    KC_S,          KC_D,         KC_F,  KC_G,   KC_H,          KC_J,     KC_K,    KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-      KC_LSPO, 	                      KC_Z,    KC_X,          KC_C,         KC_V,  KC_B,   KC_N,          KC_M,  KC_COMM,  KC_DOT, TD(TD_SLASH_QUESTION),                    KC_RSPC,
-      LCTL_T(KC_LEFT_CURLY_BRACE), _______, KC_LGUI, OSM(MOD_LALT),    OSL(_SYM),    KC_SPC,      TT(_NUM_PADS),  _______, _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
+      KC_TAB,                         KC_Q,    KC_W,          KC_E,         KC_R,   KC_T,     KC_Y,          KC_U,     KC_I,    KC_O,              KC_P, KC_BSPACE,
+      LT(_NAV_WIN, KC_ESCAPE),        KC_A,    KC_S,          KC_D,         KC_F,   KC_G,     KC_H,          KC_J,     KC_K,    KC_L, TD(TD_COLON_SEMI),  KC_ENTER,
+      KC_LSPO, 	                      KC_Z,    KC_X,          KC_C,         KC_V,   KC_B,     KC_N,         KC_M,  KC_COMM,  KC_DOT,           KC_SLASH,   KC_RSPC,
+      KC_LCTL,                     _______, KC_LGUI, OSM(MOD_LALT),    OSL(_SYM),       KC_SPC,     TT(_NUM_PADS),  _______, _______, TD(TD_SLASH_PIPE),   KC_RCTL
     ), 
     /* 
     * ,-----------------------------------------------------------------------------------.
@@ -94,8 +90,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_NAV_WIN] = LAYOUT_planck_mit(
       _______,         KC_ENTER, LALT(LSFT(KC_ESC)), LALT(KC_ESC),  LCTL(KC_L),       LCTL(KC_W),     _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END,      KC_DELETE,
-      _______,       LCTL(KC_A),         LCTL(KC_S),    KC_DELETE,   KC_BSPACE,       LCTL(KC_F),     _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LALT(KC_SPACE),
-      _______,       LCTL(KC_Z),         LCTL(KC_X),   LCTL(KC_C),  LCTL(KC_V), LCTL(LSFT(KC_P)),     _______, _______,   _______, _______,  _______,        _______,
+      _______,       LCTL(KC_A),         LCTL(KC_S),    KC_DELETE,   KC_BSPACE,       LCTL(KC_F),     _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LGUI(KC_SPACE),
+      _______,       LCTL(KC_Z),         LCTL(KC_X),   LCTL(KC_C),  LCTL(KC_V), LCTL(LSFT(KC_P)),     _______, LGUI(1),   LGUI(2), LGUI(3),  LGUI(4),        LGUI(5),
       _______, LCTL(LSFT(KC_Z)),            _______,      _______,     _______,                 LCTL(KC_P),    _______,   _______, _______,    RESET,         _______ 
     ),   
 
@@ -109,14 +105,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |------+------+------+------+------+------|------+------+------+------+------+------|
     * |Shift(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift)|
     * |------+------+------+------+------+------+------+------+------+------+------+------|  
-    * |Ctrl[ |      |  GUI |  Alt |Layer2|    Space    |numpds|      |      |   \  |Hyper]|
+    * |CTRL  |      |  GUI |  Alt |Layer2|    Space    |numpds|      |      |   \  |CTRL  |
     * `-----------------------------------------------------------------------------------'
     */  
     [_MAIN_MAC] = LAYOUT_planck_mit(
-      KC_TAB,                         KC_Q,          KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,          KC_U,     KC_I,    KC_O,                  KC_P,                  KC_BSPACE,
-      LT(_NAV_MAC, KC_ESCAPE),        KC_A,          KC_S,    KC_D,      KC_F,  KC_G,   KC_H,          KC_J,     KC_K,    KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-      KC_LSPO, 	                      KC_Z,          KC_X,    KC_C,      KC_V,  KC_B,   KC_N,          KC_M,  KC_COMM,  KC_DOT, TD(TD_SLASH_QUESTION),                    KC_RSPC,
-      LCTL_T(KC_LEFT_CURLY_BRACE), _______, OSM(MOD_LALT), KC_LGUI, OSL(_SYM),     KC_SPC,    OSL(_NUM_PADS), _______, _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
+      KC_TAB,                    KC_Q,          KC_W,    KC_E,      KC_R,   KC_T,   KC_Y,          KC_U,    KC_I,    KC_O,              KC_P, KC_BSPACE,
+      LT(_NAV_MAC, KC_ESCAPE),   KC_A,          KC_S,    KC_D,      KC_F,   KC_G,   KC_H,          KC_J,    KC_K,    KC_L, TD(TD_COLON_SEMI),  KC_ENTER,
+      KC_LSPO, 	                 KC_Z,          KC_X,    KC_C,      KC_V,   KC_B,   KC_N,          KC_M, KC_COMM,  KC_DOT,          KC_SLASH,   KC_RSPC,
+      KC_LCTL,                _______, OSM(MOD_LALT), KC_LGUI, OSL(_SYM),     KC_SPC,    OSL(_NUM_PADS), _______, _______, TD(TD_SLASH_PIPE),   KC_LCTL
     ), 
 
     /* 
@@ -133,8 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV_MAC] = LAYOUT_planck_mit(
       _______,         KC_ENTER, LGUI(LSFT(KC_TAB)), LGUI(KC_TAB),  LGUI(KC_L),       LGUI(KC_W),      _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END,      KC_DELETE,
       _______,       LGUI(KC_A),         LGUI(KC_S),    KC_DELETE,   KC_BSPACE,       LGUI(KC_F),      _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LALT(KC_SPACE),
-      _______,       LGUI(KC_Z),         LGUI(KC_X),   LGUI(KC_C),  LGUI(KC_V), LGUI(LSFT(KC_P)),      _______, _______,   _______, _______, _______,        _______,
-      _______, LCTL(LSFT(KC_Z)),            _______,      _______,     _______,              LGUI(KC_P),        _______,   _______, _______,   RESET,        _______ 
+      _______,       LGUI(KC_Z),         LGUI(KC_X),   LGUI(KC_C),  LGUI(KC_V), LGUI(LSFT(KC_P)),      _______, LGUI(1),   LGUI(2), LGUI(3),  LGUI(4),        LGUI(5),
+      _______, LCTL(LSFT(KC_Z)),            _______,      _______,     _______,              LGUI(KC_P),        _______,   _______, _______,    RESET,        _______ 
     ),
 
     /* -------------------- SYM ------------------- */
@@ -171,10 +167,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------' 
     */
     [_SYM] = LAYOUT_planck_mit(
-          WIN, KC_EXLM,    KC_AT,  KC_HASH,  _______, KC_PERC,  _______, _______, _______, _______, _______, KC_BSPC, 
-          MAC, KC_QUES, KC_GRAVE,  KC_DQUO,  KC_QUOT, KC_CIRC,   KC_DLR, KC_MINUS, KC_UNDS, KC_TILD, _______, KC_ENT,
-      _______, _______,  _______,  KC_PIPE,  KC_PSLS, KC_AMPR,    KC_AT, KC_NUBS, _______, _______, _______, _______, 
-        RESET, _______,  _______,  _______,  _______,     KC_BSPACE,     _______, _______, _______, _______, _______
+          WIN, KC_EXLM,    KC_AT,  KC_HASH,  _______, KC_PERC,  _______,  _______, _______,     _______, _______, KC_BSPC, 
+          MAC, KC_QUES, KC_GRAVE,  KC_DQUO,  KC_QUOT, KC_CIRC,   KC_DLR, KC_MINUS, KC_UNDS,    KC_EQUAL, KC_TILD, KC_ENT,
+      _______, _______,  _______,  KC_PIPE,  KC_PSLS, KC_AMPR,    KC_AT,  KC_NUBS, _______,     _______, _______, _______, 
+        RESET, _______,  _______,  _______,  _______,     KC_BSPACE,      _______, _______,     _______, _______, _______
     )
 
 };
@@ -205,35 +201,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void led_set_user(uint8_t usb_led) {
 
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+    // if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
 
-    } else {
+    // } else {
 
-    }
+    // }
 
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    // if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
 
-    } else {
+    // } else {
 
-    }
+    // }
 
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+    // if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
 
-    } else {
+    // } else {
 
-    }
+    // }
 
-    if (IS_LED_ON(usb_led, USB_LED_COMPOSE)) {
+    // if (IS_LED_ON(usb_led, USB_LED_COMPOSE)) {
 
-    } else {
+    // } else {
 
-    }
+    // }
 
-    if (IS_LED_ON(usb_led, USB_LED_KANA)) {
+    // if (IS_LED_ON(usb_led, USB_LED_KANA)) {
 
-    } else {
+    // } else {
 
-    }
+    // }
 
 }
 
