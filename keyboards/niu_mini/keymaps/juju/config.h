@@ -1,4 +1,3 @@
-#define LEADER_TIMEOUT 500
 #define TAPPING_TOGGLE 2
 
 #define NO_ACTION_MACRO
@@ -10,3 +9,6 @@
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
 #endif // !NO_PRINT
+
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 250
