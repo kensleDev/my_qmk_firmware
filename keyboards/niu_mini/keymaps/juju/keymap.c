@@ -25,7 +25,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-    
+
 void led_set_user(uint8_t usb_led) {
 
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
@@ -64,58 +64,75 @@ void led_set_user(uint8_t usb_led) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* Layer 0
+    /* Base
      * ,-----------------------------------------------------------------------------------.
      * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * |L1 ESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
+     * |LT-ESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |Shift(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift)|
-     * |------+------+------+------+------+------+------+------+------+------+------+------|  
-     * |Ctrl[ |   -  |  GUI |  Alt |Layer2|    Space    |Layer2|  `   |Quote |   \  |Hyper]|
+     * |Shift |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   ?  |Shift |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |Ctrl  |      |  GUI |  Alt |Up-L  |    Space    |Low-b | RALT | RCTL |   \  |      |
      * `-----------------------------------------------------------------------------------'
-     */  
+     */
     [0] = LAYOUT_planck_mit(
-      KC_TAB,                                    KC_Q,    KC_W,          KC_E,  KC_R,  KC_T,   KC_Y,   KC_U,     KC_I,    KC_O,                  KC_P,                  KC_BSPACE,
-      LT(1, KC_ESCAPE),                          KC_A,    KC_S,          KC_D,  KC_F,  KC_G,   KC_H,   KC_J,     KC_K,    KC_L,     TD(TD_COLON_SEMI),                   KC_ENTER,
-      KC_LSPO, 	                                 KC_Z,    KC_X,          KC_C,  KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM,  KC_DOT, TD(TD_SLASH_QUESTION),                    KC_RSPC,
-      LCTL_T(KC_LEFT_CURLY_BRACE), TD(TD_MINUS_UNDER), KC_LGUI, OSM(MOD_LALT), TT(2),     KC_SPC,     TT(2), KC_GRAVE, _______,     TD(TD_SLASH_PIPE), MEH_T(KC_RIGHT_CURLY_BRACE)
-    ), 
+      KC_TAB,              KC_Q,    KC_W,          KC_E,               KC_R,  KC_T,   KC_Y,             KC_U,    KC_I,   KC_O,        KC_P, KC_BSPACE,
+      LT(1, KC_ESCAPE),    KC_A,    KC_S,          KC_D,               KC_F,  KC_G,   KC_H,             KC_J,    KC_K,   KC_L,   KC_SCOLON,  KC_ENTER,
+      LSFT, 	           KC_Z,    KC_X,          KC_C,               KC_V,  KC_B,   KC_N,             KC_M, KC_COMM, KC_DOT, KC_QUESTION,   KC_RSPC,
+      LCTL,             _______, KC_LGUI, OSM(MOD_LALT), LT(2, LCTL(KC_F7)),     KC_SPC,    LT(3, KC_BSPACE),    RALT,   RCTL,    KC_SLASH,   _______
+    ),
 
-
-    /* Layer 1
+    /* Transport
     * ,-----------------------------------------------------------------------------------.
-    * |      | ENTER| !+ESC| !ESC |  ^L  |  ^W  |      | HOME | PGDN | PGUP | END  |DELETE|
-    * |------+------+------+------+------+------+-------------+------+------+------+------| 
-    * |      | ^A   |  ^S  |  DEL | BKSP |  ^F  |      | LEFT | DOWN | UP   | RIGHT|  RUN |
+    * |      | ^Q   | !+ESC| !ESC |  F11  |     |      | HOME | PGDN | PGUP | END |DELETE|
+    * |------+------+------+------+------+------+-------------+------+------+------+------|
+    * |      | ^A   |  ^S  |  DEL | ^F   |  ^L  |      | LEFT | DOWN | UP   | RIGHT|  RUN |
     * |------+------+------+------+------+------+------|------+------+------+------+------|
-    * |      | ^Z   | ^X   | ^C   | ^V   | ^+P  |      |      |      |      |      |      |
+    * |      | ^Z   | ^X   | ^C   | ^V   |      |      |  W1  |  W2  |  W3  |  W4  |  W5  |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * | RESET| ^+Z  |      |      |      |     ^P      |      |      |      |      |      |
+    * | Ctrl | ^+Z  |  GUI | Alt  |      |             |      |      |      |      |      |
     * `-----------------------------------------------------------------------------------'
     */
     [1] = LAYOUT_planck_mit(
-      _______,         KC_ENTER, LALT(LSFT(KC_ESC)), LALT(KC_ESC),  LCTL(KC_L),       LCTL(KC_W), _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END,      KC_DELETE,
-      _______,       LCTL(KC_A),         LCTL(KC_S),    KC_DELETE,   KC_BSPACE,       LCTL(KC_F), _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LALT(KC_SPACE),
-      _______,       LCTL(KC_Z),         LCTL(KC_X),   LCTL(KC_C),  LCTL(KC_V), LCTL(LSFT(KC_P)), _______, _______,   _______, _______,  _______,        _______,
-        RESET, LCTL(LSFT(KC_Z)),            _______,      _______,     _______,            LCTL(KC_P),     _______,   _______, _______,  _______,        _______ 
-    ),   
+      _______,       LCTL(KC_Q), LALT(LSFT(KC_ESC)),  LALT(KC_ESC),  LCTL(KC_L),    _______, _______, KC_HOME, KC_PGDOWN, KC_PGUP,   KC_END,      KC_DELETE,
+      _______,       LCTL(KC_A),         LCTL(KC_S),     KC_DELETE,  LCTL(KC_F), LCTL(KC_L), _______, KC_LEFT,   KC_DOWN,   KC_UP, KC_RIGHT, LALT(KC_SPACE),
+      _______,       LCTL(KC_Z),         LCTL(KC_X),    LCTL(KC_C),  LCTL(KC_V),    _______, _______, _______,   _______, _______,  _______,        _______,
+        RESET, LCTL(LSFT(KC_Z)),            KC_LGUI, OSM(MOD_LALT),     _______,        _______,      _______,   _______, _______,  _______,        _______
+    ),
 
-    /* Layer 2
+    /* Upper
     * ,-----------------------------------------------------------------------------------.
-    * |      |  F10  | F11 |  F12 |      |   #  |   $  |  *   |   7  |   8  |  9   | BSPA |
+    * |   !  |   @  |   #  |   _  |   %  |      |      |   7  |   8  |  9   |  +   | BSPA |
     * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * |      |  F7  |  F8  |  F9  |      |   ^  |   %  |  -   |   4  |   5  |  6   |Enter |
+    * |      |      |   `  |   "  |   '  |   ^  |   $  |   4  |   5  |  6   |  -   |Enter |
     * |------+------+------+------+------+------|------+------+------+------+------+------|
-    * |      |  F4  |  F5  |  F6  |      |   {  |   }  |  +   |   1  |   2  |  3   |      |
+    * |      |   |  |   [  |   {  |   (  |   &  |      |   1  |   2  |  3   |  *   |   =  |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |      |  F1  |  F2  |  F3  |      |      |      |      |   0  |   .  |   =  |   /  |
-    * `-----------------------------------------------------------------------------------' 
+    * | Ctrl |      |  GUI | Alt  |      |             |DelWord|   0  |   .  |   /  |      |
+    * `-----------------------------------------------------------------------------------'
     */
     [2] = LAYOUT_planck_mit(
-      _______, KC_F10, KC_F11, KC_F12, _______, KC_NONUS_HASH,  KC_DOLLAR,     KC_KP_PLUS,  KC_7,   KC_8,        KC_9,   KC_BSPACE, 
+      _______, _______, _______, KC_NONUS_HASH, _______, KC_NONUS_HASH,  KC_DOLLAR,     KC_KP_PLUS,  KC_7,   KC_8,        KC_9,   KC_BSPACE,
+      _______, _______, _______,       _______, _______, KC_CIRCUMFLEX, KC_PERCENT,    KC_KP_MINUS,  KC_4,   KC_5,        KC_6,    KC_ENTER,
+      _______, _______, _______,       _______, _______,       _______,    _______, KC_KP_ASTERISK,  KC_1,   KC_2,        KC_3,     _______,
+      _______, _______, _______,       _______, _______,            _______,               _______,  KC_0, KC_DOT, KC_KP_EQUAL, KC_KP_SLASH
+    )
+
+    /* Lower
+    * ,-----------------------------------------------------------------------------------.
+    * | App1 |  F10  | F11 |  F12 |      |      |      |      |      |      |      | BSPA |
+    * |------+------+------+------+------+-------------+------+------+------+------+------|
+    * | App2 |  F7  |  F8  |  F9  |      |      |      |      |      |      |      |Enter |
+    * |------+------+------+------+------+------|------+------+------+------+------+------|
+    * | App3 |  F4  |  F5  |  F6  |      |      |      |   )  |   }  |   ]  |      |      |
+    * |------+------+------+------+------+------+------+------+------+------+------+------|
+    * | App4 |  F1  |  F2  |  F3  |      |             |   X  | RALT | RCTL |      |      |
+    * `-----------------------------------------------------------------------------------'
+    */
+    [3] = LAYOUT_planck_mit(
+      _______, KC_F10, KC_F11, KC_F12, _______, KC_NONUS_HASH,  KC_DOLLAR,     KC_KP_PLUS,  KC_7,   KC_8,        KC_9,   KC_BSPACE,
       _______, KC_F7,   KC_F8,  KC_F9, _______, KC_CIRCUMFLEX, KC_PERCENT,    KC_KP_MINUS,  KC_4,   KC_5,        KC_6,    KC_ENTER,
-      _______, KC_F4,   KC_F5,  KC_F6, _______,       _______,    _______, KC_KP_ASTERISK,  KC_1,   KC_2,        KC_3,     _______, 
+      _______, KC_F4,   KC_F5,  KC_F6, _______,       _______,    _______, KC_KP_ASTERISK,  KC_1,   KC_2,        KC_3,     _______,
       _______, KC_F1,   KC_F2,  KC_F3, _______,            _______,               _______,  KC_0, KC_DOT, KC_KP_EQUAL, KC_KP_SLASH
     )
 
@@ -180,14 +197,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    SEQ_ONE_KEY(KC_Z) {
 //       SEND_STRING(SS_LCTRL("z"));
 //    }
-   
 
-   
+
+
 //   }
 // }
 
 
-// /* 
+// /*
 //     /* Layer 2
 //     * ,-----------------------------------------------------------------------------------.
 //     * |      |  !   |   "  |   #  |   9  |   {  |   }  |  0   |   $  |   %  |  ^   |      |
@@ -206,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //        _______,    _______,  _______,       _______,        _______,                  _______,         _______,    _______,  _______,     _______,       KC_GRV
 //     )   */
 
-// 
+//
 // static bool bsdel_mods = false;
 
 
@@ -229,7 +246,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //       }
 //     }
 
-    
+
 //     case M_BSDEL: {
 //       uint8_t kc = KC_BSPC;
 
