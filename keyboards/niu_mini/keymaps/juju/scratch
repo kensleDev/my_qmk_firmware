@@ -1,0 +1,136 @@
+
+
+
+
+// /*----------------------------------------------------------------Leader Layer ()
+//     * ,-----------------------------------------------------------------------------------.
+//     * |      |      |      |      |      |      |      |      |      |      |      | RESET|
+//     * |------+------+------+------+------+-------------+------+------+------+------+------|
+//     * |      | ^A   |  ^S  |  DEL |      |      |      |      |      |      |      |      |
+//     * |------+------+------+------+------+------|------+------+------+------+------+------|
+//     * |      | ^Z   | ^X   | ^C   | ^V   |      |      |      |      |      |      |      |
+//     * |------+------+------+------+------+------+------+------+------+------+------+------|
+//     * |      | ^+Z  |      |      |      |      |      |      |      |      |      |      |
+//     * `-----------------------------------------------------------------------------------'
+//     */
+
+// LEADER_EXTERNS();
+// void matrix_scan_user(void) {
+//   LEADER_DICTIONARY() {
+//     leading = false;
+//     leader_end();
+
+//     SEQ_ONE_KEY(KC_A) {
+//       SEND_STRING(SS_LCTRL("a"));
+//     }
+
+//     SEQ_ONE_KEY(KC_S) {
+//       SEND_STRING(SS_LCTRL("s"));
+//     }
+
+//     SEQ_ONE_KEY(KC_C) {
+//       SEND_STRING(SS_LCTRL("c"));
+//     }
+
+//     SEQ_ONE_KEY(KC_V) {
+//       SEND_STRING(SS_LCTRL("v"));
+//     }
+
+//     SEQ_ONE_KEY(KC_X) {
+//       SEND_STRING(SS_LCTRL("x"));
+//     }
+
+//    SEQ_ONE_KEY(KC_Z) {
+//       SEND_STRING(SS_LCTRL("z"));
+//    }
+
+
+
+//   }
+// }
+
+
+// /*
+//     /* Layer 2
+//     * ,-----------------------------------------------------------------------------------.
+//     * |      |  !   |   "  |   #  |   9  |   {  |   }  |  0   |   $  |   %  |  ^   |      |
+//     * |------+------+------+------+------+-------------+------+------+------+------+------|
+//     * |      | 5    |  6   |   7  |   8  |   (  |   )  |  1   |  2   |   3  |   4  |      |
+//     * |------+------+------+------+------+------|------+------+------+------+------+------|
+//     * |      |      |      |  /   |  *   |   [  |   ]  |   +  |   -  |   .  |   &  |      |
+//     * |------+------+------+------+------+------+------+------+------+------+------+------|
+//     * |      |      |      |      |      |      |      |      |      |      |      |  `   |
+//     * `-----------------------------------------------------------------------------------'
+//     */
+//     [2] = LAYOUT_planck_mit(
+//        _______, KC_EXCLAIM, KC_QUOTE, KC_NONUS_HASH,           KC_9, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE,       KC_0, KC_DOLLAR, KC_PERCENT, KC_CIRCUMFLEX, _______,
+//        _______,       KC_5,     KC_6,          KC_7,           KC_8,       KC_LEFT_PAREN,       KC_RIGHT_PAREN,       KC_1,     KC_2,        KC_3,          KC_4, _______,
+//        _______,    _______,  _______,   KC_KP_SLASH, KC_KP_ASTERISK,         KC_LBRACKET,          KC_RBRACKET, KC_KP_PLUS, KC_MINUS,   KC_KP_DOT,       _______, _______,
+//        _______,    _______,  _______,       _______,        _______,                  _______,         _______,    _______,  _______,     _______,       KC_GRV
+//     )   */
+
+//
+// static bool bsdel_mods = false;
+
+
+// // ---------------------------------------------------------------- Macro Declarations
+// enum {
+//     COPY = 0,
+//     REDO,
+//     M_BSDEL
+// };
+
+
+// // ---------------------------------------------------------------- Macro Definitions
+// const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+// {
+//   switch(id) {
+
+//     case REDO: {
+//       if (record->event.pressed) {
+//         return MACRO(D(LCTRL), D(LSHIFT), T(Z), U(LSHIFT), U(LCTRL), END);
+//       }
+//     }
+
+
+//     case M_BSDEL: {
+//       uint8_t kc = KC_BSPC;
+
+//       if (keyboard_report->mods) {
+//         kc = KC_DEL;
+//         bsdel_mods = true;
+//       } else {
+//         bsdel_mods = false;
+//       }
+
+//       if (record->event.pressed)
+//         register_code (kc);
+//       else
+//         unregister_code (kc);
+//     }
+
+
+//   }
+//   return MACRO_NONE;
+// };
+
+
+// ----------------------------------------------------------------Tap Dance Declarations
+enum {
+  TD_COLON_SEMI = 0,
+  TD_QUOUTE_DOUBLE,
+  TD_SLASH_QUESTION,
+  TD_DOT_EXCLAIM,
+  TD_SLASH_PIPE,
+  TD_MINUS_UNDER
+};
+
+// ---------------------------------------------------------------- Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_COLON_SEMI]  = ACTION_TAP_DANCE_DOUBLE(KC_COLON, KC_SCOLON),
+  [TD_QUOUTE_DOUBLE]  = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DOUBLE_QUOTE),
+  [TD_SLASH_QUESTION]  = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_QUESTION),
+  [TD_DOT_EXCLAIM]  = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_EXCLAIM),
+  [TD_SLASH_PIPE]  = ACTION_TAP_DANCE_DOUBLE(KC_BSLASH, KC_PIPE),
+  [TD_MINUS_UNDER]  = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_UNDERSCORE),
+};

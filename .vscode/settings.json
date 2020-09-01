@@ -22,5 +22,6 @@
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
     },
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "powershell.codeFormatting.addWhitespaceAroundPipe": true
 }
