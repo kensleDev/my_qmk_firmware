@@ -109,28 +109,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [2] = LAYOUT_planck_mit(
-      _______, KC_EXLM,   KC_AT,       KC_NUHS, KC_UNDS, KC_PERC, _______,        KC_7, KC_8,   KC_9, KC_PLUS, KC_BSPC,
+      _______, KC_EXLM,   KC_AT,       KC_HASH, KC_UNDS, KC_PERC, _______,        KC_7, KC_8,   KC_9, KC_PLUS, KC_BSPC,
       _______, KC_QUES,  KC_GRV,       KC_DQUO, KC_QUOT, KC_CIRC,  KC_DLR,        KC_4, KC_5,   KC_6, KC_MINS,  KC_ENT,
       _______, KC_PIPE, KC_LBRC,       KC_LCBR, KC_LPRN, KC_AMPR, _______,        KC_1, KC_2,   KC_3, KC_ASTR,  KC_EQL,
-      KC_LCTL, KC_LGUI, KC_LCTL, OSM(MOD_LALT), _______,      _______,     LCTL(KC_F7), KC_0, KC_DOT, KC_SLSH, _______
+      KC_LCTL, KC_LGUI, KC_LCTL, OSM(MOD_LALT), _______,  LALT(KC_PGUP),   LCTL(KC_F7), KC_0, KC_DOT, KC_SLSH, _______
     ),
 
     /* Lower
     * ,-----------------------------------------------------------------------------------.
-    * | App1 |  F10  | F11 |  F12 |      |      |      |      |      |      |      | BSPA |
+    * | App1 |      |  F10  | F11 |  F12 |      |      |      |      |      |      | BSPA |
     * |------+------+------+------+------+-------------+------+------+------+------+------|
-    * | App2 |  F7  |  F8  |  F9  |      |      |      |      |      |      |      |Enter |
+    * | App2 |      |  F7  |  F8  |  F9  |      |      |      |      |      |      |Enter |
     * |------+------+------+------+------+------|------+------+------+------+------+------|
-    * | App3 |  F4  |  F5  |  F6  |      |      |      |   )  |   }  |   ]  |   ~  |      |
+    * | App3 |      |  F4  |  F5  |  F6  |      |      |   )  |   }  |   ]  |   ~  |      |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * | App4 |  F1  |  F2  |  F3  |      |             |   X  | RALT | RCTL |      |RESET |
+    * | App4 |      |  F1  |  F2  |  F3  |             |   X  | RALT | RCTL |      |RESET |
     * `-----------------------------------------------------------------------------------'
     */
     [3] = LAYOUT_planck_mit(
-      LGUI(KC_1), KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, _______, _______,  _______, KC_BSPC,
-      LGUI(KC_2), KC_F7,   KC_F8,  KC_F9, _______, _______, _______, _______, _______, _______,  _______,  KC_ENT,
-      LGUI(KC_3), KC_F4,   KC_F5,  KC_F6, _______, _______, _______, KC_RPRN, KC_RCBR, KC_RBRC,  KC_TILD, _______,
-      LGUI(KC_4), KC_F1,   KC_F2,  KC_F3, _______,     _______,      _______, KC_RALT, KC_RCTL,  _______,   RESET
+      LGUI(KC_1), _______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, _______,  _______, KC_BSPC,
+      LGUI(KC_2), _______, KC_F7,   KC_F8,  KC_F9, _______, _______, _______, _______, _______,  _______,  KC_ENT,
+      LGUI(KC_3), _______, KC_F4,   KC_F5,  KC_F6, _______, _______, KC_RPRN, KC_RCBR, KC_RBRC,  KC_TILD, _______,
+      LGUI(KC_4), _______, KC_F1,   KC_F2,  KC_F3,     _______,      _______, KC_RALT, KC_RCTL,  _______,   RESET
     )
 
 };
