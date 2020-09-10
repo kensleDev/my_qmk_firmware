@@ -79,3 +79,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+
+#define LEADER_TIMEOUT 500
+#define TAPPING_TOGGLE 2
+#define UCIS_MAX_CODE_POINTS 3
