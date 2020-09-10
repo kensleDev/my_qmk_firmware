@@ -17,8 +17,14 @@
 // Defines for task manager and such
 #define CALTDEL LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
-#define WIN_FWD LSFT(KC_ESC)
 #define WIN_BACk LALT(LSFT(KC_ESC))
+#define WIN_FWD LALT(KC_ESC)
+
+/* enum custom_keycodes { */
+/*     WIN_FWD = SAFE_RANGE, */
+/*     WIM_BACk */ 
+/* }; */
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -42,20 +48,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Adjust , 
     * ,-----------------------------------------------------------------------------------.
-    * |      | ^Q   | !+ESC| !ESC |  tab |      | BACk | HOME | PGDN | PGUP | END  |DELETE|
+    * |      | ^Q   | !+ESC| !ESC |  tab | focus| BACk | HOME | PGDN | PGUP | END  |DELETE|
     * |------+------+------+------+------+------+-------------+------+------+------+------|
     * |      | ^A   |  ^S  |  DEL | ^F   |      |Forwar| LEFT | DOWN | UP   | RIGHT|enter |
-    * |------+------+------+------+------+------+------|------+------+------+------+------|
+    * |------+------+------+-----+------+------+------|------+------+------+------+------|
     * | shift| ^Z   | ^X   | ^C   | ^V   |      |Search|  W1  |  W2  |  W3  |  W4  |shift |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * | ctrl |  GUI | Ctrl |  Alt |      |      |      |      |      |      |      |      |
+    * | ctrl |  GUI | Ctrl |  Alt | PLAY | PREV | NEXT |      |      |      |      |      |
     * `-----------------------------------------------------------------------------------'
     */
     [_ADJUST] = LAYOUT_ortho_4x12(
-        _______, LGUI(KC_Q), WIN_BACk,   WIN_FWD,       LSFT(KC_TAB), _______, KC_WBAK,       KC_HOME,         KC_PGDOWN,  KC_PGUP,    KC_END,     KC_DELETE,
-        _______, LCTL(KC_A), LCTL(KC_S), KC_DELETE,     LCTL(KC_F),   _______, KC_WFWD,       KC_LEFT,         KC_DOWN,    KC_UP,      KC_RGHT,    KC_ENT,
-        KC_LSFT, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C),    LCTL(KC_V),   _______, LCTL(KC_L),    LGUI(KC_1),      LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), KC_RSFT,
-        KC_LCTL, KC_LGUI,    KC_LCTL,    OSM(MOD_LALT), _______,      _______, LALT(KC_PGUP), LCTL(KC_BSPACE), _______,    _______,    _______,    _______
+        _______, LGUI(KC_Q), WIN_BACk,   WIN_FWD,       LCTL(KC_TAB), LALT(KC_F7), KC_WFWD,    KC_HOME,         KC_PGDOWN,  KC_PGUP,    KC_END,     KC_DELETE,
+        _______, LCTL(KC_A), LCTL(KC_S), KC_DELETE,     LCTL(KC_F),   _______,     KC_WBAK,    KC_LEFT,         KC_DOWN,    KC_UP,      KC_RGHT,    KC_ENT,
+        KC_LSFT, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C),    LCTL(KC_V),   _______,     LCTL(KC_L), LGUI(KC_1),      LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), KC_RSFT,
+        KC_LCTL, KC_LGUI,    KC_LCTL,    OSM(MOD_LALT), KC_MPLY,      KC_MPRV,     KC_MNXT,    LCTL(KC_BSPACE), _______,    _______,    _______,    _______
     ),
 
 
@@ -98,9 +104,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-
-  }
-  return true;
-}
+/* bool process_record_user(uint16_t keycode, keyrecord_t *record) { */
+/*     if (record->event.pressed) { */
+/*         switch (keycode) { */
+/*             case WIN_FWD: */
+/*                 SEND_STRING("testerrr"); */
+/*                     // when keycode QMKBEST is pressed */
+/*                     /1* SEND_STRING(SS_LALT("ESC"); *1/ */
+/*                     /1* SEND_STRING(SS_LALT("F7")); *1/ */
+/*                     /1* SEND_STRING(SS_LALT("F7")); *1/ */
+/*             return false; break; */
+/*             case WIN_BACk: */
+/*                     // when keycode QMBEST is pressed */
+/*                     SEND_STRING(SS_LSFT(SS_LALT("ESC")) */
+/*                     /1* SEND_STRING(SS_LALT("F7")); *1/ */
+/*                     /1* SEND_STRING(SS_LALT("F7")); *1/ */
+                
+/*             break; */
+/*         } */
+/*     } */
+/*   return true; */
