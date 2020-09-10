@@ -12,7 +12,7 @@
 // layer switchers
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
-#define NAV_ESC LT(_ADJUST, KC_ESCAPE)
+#define NAV_ESC MO(_ADJUST)
 
 
 // Defines for task manager and such
@@ -33,17 +33,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------.  .----------------------------------------'
     */
     [_BASE] = LAYOUT_ortho_4x12(
-        KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,  KC_T,    KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,  KC_T,    KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_ESC,
         NAV_ESC, KC_A,    KC_S,    KC_D,   KC_F,  KC_G,    KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,   KC_V,  KC_B,    KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
         KC_LCTL, KC_LGUI, KC_LCTL, ST_ALT, LOWER, KC_BSPC, KC_SPC, RAISE, KC_RALT, KC_RCTL, KC_BSLS, KC_RCTL
     ),
 
-    /* Adjust , LCTL(KC_F7)
+    /* Adjust , 
     * ,-----------------------------------------------------------------------------------.
-    * |      | ^Q   | !+ESC| !ESC |  F11  |     |      | HOME | PGDN | PGUP | END  |DELETE|
+    * |      | ^Q   | !+ESC| !ESC |  F11  |     | BACk | HOME | PGDN | PGUP | END  |DELETE|
     * |------+------+------+------+------+------+-------------+------+------+------+------|
-    * |      | ^A   |  ^S  |  DEL | ^F   |  ^L  |      | LEFT | DOWN | UP   | RIGHT|enter |
+    * |      | ^A   |  ^S  |  DEL | ^F   |  ^L  |Forwar| LEFT | DOWN | UP   | RIGHT|enter |
     * |------+------+------+------+------+------+------|------+------+------+------+------|
     * |      | ^Z   | ^X   | ^C   | ^V   |      |      |  W1  |  W2  |  W3  |  W4  |shift |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_ADJUST] = LAYOUT_ortho_4x12(
-        _______, LGUI(KC_Q), LALT(LSFT(KC_ESC)), LALT(KC_ESC),  LCTL(KC_L), _______,    _______,       KC_HOME,         KC_PGDOWN,  KC_PGUP,    KC_END,     KC_DELETE,
-        _______, LCTL(KC_A), LCTL(KC_S),         KC_DELETE,     LCTL(KC_F), LCTL(KC_L), _______,       KC_LEFT,         KC_DOWN,    KC_UP,      KC_RGHT,    KC_ENT,
+        _______, LGUI(KC_Q), LALT(LSFT(KC_ESC)), LALT(KC_ESC),  LCTL(KC_L), _______,    KC_WBAK,       KC_HOME,         KC_PGDOWN,  KC_PGUP,    KC_END,     KC_DELETE,
+        _______, LCTL(KC_A), LCTL(KC_S),         KC_DELETE,     LCTL(KC_F), LCTL(KC_L), KC_WFWD,       KC_LEFT,         KC_DOWN,    KC_UP,      KC_RGHT,    KC_ENT,
         _______, LCTL(KC_Z), LCTL(KC_X),         LCTL(KC_C),    LCTL(KC_V), _______,    _______,       LGUI(KC_1),      LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), KC_RSFT,
         KC_LCTL, KC_LGUI,    KC_LCTL,            OSM(MOD_LALT), _______,    _______,    LALT(KC_PGUP), LCTL(KC_BSPACE), _______,    _______,    _______,    _______
     ),
