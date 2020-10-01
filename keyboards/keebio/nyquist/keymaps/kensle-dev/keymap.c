@@ -22,36 +22,41 @@ enum my_keycodes {
    SLASHER=SAFE_RANGE
 };
 
-
 // Defines for task manager and such
 #define CALTDEL LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
 #define WIN_BACk LALT(LSFT(KC_ESC))
 #define WIN_FWD LALT(KC_ESC)
 
-/* enum custom_keycodes { */
-/*     WIN_FWD = SAFE_RANGE, */
-/*     WIM_BACk */ 
-/* }; */
+
+// COMBOS 
+
+const uint16_t PROGMEM caps_combo[] = {KC_Q, KC_P, COMBO_END};
+const uint16_t PROGMEM backslash_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM equals_combo[] = {KC_L, KC_SCLN, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {COMBO(caps_combo, KC_CAPS), COMBO(backslash_combo, KC_BSLS), COMBO(equals_combo, KC_EQL)};
+
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Qwerty
-    * ,-----------------------------------------.  .----------------------------------------.
-    * | Tab  |   Q  |   W  |   E  |   R  |   T  |  |  Y   |   U  |   I  |   O  |   P  | Bksp |
+    * ,-----------------------------------------.  .-----------------------------------------.
+    * |      |   Q  |   W  |   E  |   R  |   T  |  |  Y   |   U  |   I  |   O  |   P  |      |
     * |------+------+------+------+------+------|  |------+------+------+------+------+------|
-    * |Adjust|   A  |   S  |   D  |   F  |   G  |  |  H   |   J  |   K  |   L  |   ;  | Enter|
+    * |      |   A  |   S  |   D  |   F  |   G  |  |  H   |   J  |   K  |   L  |   ;  |      |
     * |------+------+------+------+------+------|  |------+------+------+------+------+------|
-    * | Shift|   Z  |   X  |   C  |   V  |   B  |  |  N   |   M  |   ,  |   .  |   /  |  '   |
+    * |      |   Z  |   X  |   C  |   V  |   B  |  |  N   |   M  |   ,  |   .  |   /  |      |
     * |------+------+------+------+------+------|  |------+------+------+------+------+------|
-    * | Ctrl |  `   | GUI  | Alt  |Lower |Back  |  |Space |Raise | Left | Down |  Up  |Right |
-    * `-----------------------------------------.  .----------------------------------------'
+    * |      |      | GUI  | Alt  |BckLow|NavEsc|  |Enter |SpeRai| TAb  |      |      |      |
+    * `-----------------------------------------.  .-----------------------------------------'
     */
     [_BASE] = LAYOUT_ortho_4x12(
         _______, KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,      KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    _______,
         _______, KC_A,    KC_S,    KC_D,   SHIFT_f, KC_G,      KC_H,   SHIFT_j, KC_K,    KC_L,    KC_SCLN, _______,
-        _______, KC_Z,    KC_X,    KC_C,   KC_V,    KC_B,      KC_N,   KC_M,    KC_COMM, KC_DOT,  SLASHER, _______,
+        _______, KC_Z,    KC_X,    KC_C,   KC_V,    KC_B,      KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
         _______, _______, KC_LGUI, ST_ALT, LOWER,   NAV_ESC,   CENTER, RAISE,   KC_TAB,  _______, _______, _______
     ),
 
@@ -67,10 +72,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------.  .---------------------------------------'
     */
     [_LOWER] = LAYOUT_ortho_4x12(
-        LAUNCH,  KC_EXLM, KC_AT,   KC_HASH, KC_UNDS, KC_PERC,   _______, KC_7,   KC_8, KC_9,   KC_PLUS, KC_BSPC,
-        _______, KC_QUES, KC_GRV,  KC_DQUO, KC_QUOT, KC_CIRC,   KC_DLR,  KC_4,   KC_5, KC_6,   KC_MINS, KC_ENT,
-        _______, KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,   _______, KC_1,   KC_2, KC_3,   KC_ASTR, KC_EQL,
-        KC_LCTL, KC_LGUI, KC_LCTL, ST_ALT,  _______, _______,   _______, LAUNCH, KC_0, KC_DOT, KC_SLSH, _______
+        _______, KC_EXLM, KC_AT,   KC_HASH, KC_UNDS, KC_PERC,   _______, KC_7,   KC_8, KC_9,   KC_PLUS, _______,
+        _______, KC_QUES, KC_GRV,  KC_DQUO, KC_QUOT, KC_CIRC,   KC_DLR,  KC_4,   KC_5, KC_6,   KC_MINS, _______,
+        _______, KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,   _______, KC_1,   KC_2, KC_3,   KC_ASTR, _______,
+        _______, _______, KC_LCTL, ST_ALT,  _______, _______,   _______, LAUNCH, KC_0, KC_DOT, KC_SLSH, _______
     ),
 
     /* Lowerk
@@ -85,10 +90,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------.  .----------------------------------------'
     */
     [_RAISE] = LAYOUT_ortho_4x12(
-        LGUI(KC_1), _______, KC_F10, KC_F11, KC_F12, _______,   _______, KC_BTN1, KC_BTN2, _______,  _______, KC_BSPC,
-        LGUI(KC_2), _______, KC_F7,   KC_F8,  KC_F9, _______,   _______, KC_MS_L, KC_MS_D, KC_MS_U,  KC_MS_R,  KC_ENT,
-        LGUI(KC_3), _______, KC_F4,   KC_F5,  KC_F6, _______,   _______, KC_RPRN, KC_RCBR, KC_RBRC,  KC_TILD, _______,
-        LGUI(KC_4), _______, KC_F1,   KC_F2,  KC_F3, _______,   _______, _______, KC_RALT, KC_RCTL,  _______,   RESET
+        _______, _______, KC_F10, KC_F11, KC_F12, _______,   _______, KC_BTN1, KC_BTN2, _______,  _______, _______,
+        _______, _______, KC_F7,   KC_F8,  KC_F9, _______,   _______, KC_MS_L, KC_MS_D, KC_MS_U,  KC_MS_R, _______,
+        _______, _______, KC_F4,   KC_F5,  KC_F6, _______,   _______, KC_RPRN, KC_RCBR, KC_RBRC,  KC_TILD, _______,
+        _______, _______, KC_F1,   KC_F2,  KC_F3, _______,   _______, _______, RESET,   KC_RCTL,  _______, _______
     ),
 
 
@@ -112,8 +117,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM test_combo[] = {KC_Q, KC_P, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_CAPS)};
 
 /* bool process_record_user(uint16_t keycode, keyrecord_t *record) { */
 /*     switch(keycode) { */
