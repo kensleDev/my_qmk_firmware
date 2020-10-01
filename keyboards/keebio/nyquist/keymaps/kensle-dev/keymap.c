@@ -8,14 +8,21 @@
 #define _LOWER 3
 #define _RAISE 4
 #define _ADJUST 5
-#define _MOUSE 6
 
 // layer switchers
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
+#define LOWER  LT(_LOWER, KC_BSPC)
+#define RAISE  LT(_RAISE, KC_SPC)
 #define NAV_ESC LT(_ADJUST, KC_ESC)
-#define TAB_ALT LT(KC_LALT, KC_TAB)
-#define MOUSE MO(_MOUSE)
+#define SHIFT_f MT(MOD_LSFT, KC_F)
+#define SHIFT_j MT(MOD_LSFT, KC_J)
+
+#define CENTER MT(MOD_LCTL, KC_ENT)
+
+enum my_keycodes {
+   SLASHER=SAFE_RANGE
+};
+
+
 // Defines for task manager and such
 #define CALTDEL LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
@@ -42,14 +49,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------.  .----------------------------------------'
     */
     [_BASE] = LAYOUT_ortho_4x12(
-        TAB_ALT, KC_Q,    KC_W,    KC_E,   KC_R,  KC_T,      KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_LCTL,
-        NAV_ESC, KC_A,    KC_S,    KC_D,   KC_F,  KC_G,      KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,   KC_V,  KC_B,      KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-        KC_LCTL, KC_LGUI, MOUSE,   ST_ALT, LOWER, KC_BSPC,   KC_SPC, RAISE, MOUSE,   KC_RALT, KC_BSLS, KC_RCTL
+        _______, KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,      KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    _______,
+        _______, KC_A,    KC_S,    KC_D,   SHIFT_f, KC_G,      KC_H,   SHIFT_j, KC_K,    KC_L,    KC_SCLN, _______,
+        _______, KC_Z,    KC_X,    KC_C,   KC_V,    KC_B,      KC_N,   KC_M,    KC_COMM, KC_DOT,  SLASHER, _______,
+        _______, _______, KC_LGUI, ST_ALT, LOWER,   NAV_ESC,   CENTER, RAISE,   KC_TAB,  _______, _______, _______
     ),
 
-
-    /* Raise
+    /* Raise 
     * ,-----------------------------------------.  .----------------------------------------.
     * |      |  !   |   @  |   #  |   _  |   %  |  |     |   7  |   8  |  9   |  +   | BSPA |
     * |------+------+------+------+------+------|  |-----+------+------+------+------+------|
@@ -79,8 +85,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------.  .----------------------------------------'
     */
     [_RAISE] = LAYOUT_ortho_4x12(
-        LGUI(KC_1), _______, KC_F10, KC_F11, KC_F12, _______,   _______, _______, _______, _______,  _______, KC_BSPC,
-        LGUI(KC_2), _______, KC_F7,   KC_F8,  KC_F9, _______,   _______, _______, _______, _______,  _______,  KC_ENT,
+        LGUI(KC_1), _______, KC_F10, KC_F11, KC_F12, _______,   _______, KC_BTN1, KC_BTN2, _______,  _______, KC_BSPC,
+        LGUI(KC_2), _______, KC_F7,   KC_F8,  KC_F9, _______,   _______, KC_MS_L, KC_MS_D, KC_MS_U,  KC_MS_R,  KC_ENT,
         LGUI(KC_3), _______, KC_F4,   KC_F5,  KC_F6, _______,   _______, KC_RPRN, KC_RCBR, KC_RBRC,  KC_TILD, _______,
         LGUI(KC_4), _______, KC_F1,   KC_F2,  KC_F3, _______,   _______, _______, KC_RALT, KC_RCTL,  _______,   RESET
     ),
@@ -98,37 +104,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------.  .----------------------------------------'
     */
     [_ADJUST] = LAYOUT_ortho_4x12(
-        MOUSE,   LGUI(KC_Q), WIN_BACk,   WIN_FWD,       LCTL(KC_TAB), LALT(KC_F7),   _______,    KC_HOME,    KC_PGDOWN,  KC_PGUP,    KC_END,     KC_DELETE,
+        _______, LGUI(KC_Q), WIN_BACk,   WIN_FWD,       LCTL(KC_TAB), LALT(KC_F7),   _______,    KC_HOME,    KC_PGDOWN,  KC_PGUP,    KC_END,     KC_DELETE,
         _______, LCTL(KC_A), LCTL(KC_S), KC_DELETE,     LCTL(KC_F),   LCTL(KC_L),    _______,    KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    KC_ENT,
         KC_LSFT, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C),    LCTL(KC_V),   _______,       _______,    LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), KC_RSFT,
         KC_LCTL, KC_LGUI,    KC_LCTL,    OSM(MOD_LALT), KC_SPC,       KC_BTN4,       KC_BTN5,    _______,    _______,    _______,    _______,    _______
     ), 
 
-    [_MOUSE] = LAYOUT_ortho_4x12(
-        _______, _______, _______, _______, _______, _______,   _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
-        _______, _______, _______, _______, _______, _______,   _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
-        _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, KC_BTN2, KC_BTN1,   KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, _______
-    )
 };
 
+const uint16_t PROGMEM test_combo[] = {KC_Q, KC_P, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_CAPS)};
+
 /* bool process_record_user(uint16_t keycode, keyrecord_t *record) { */
-/*     if (record->event.pressed) { */
-/*         switch (keycode) { */
-/*             case WIN_FWD: */
-/*                 SEND_STRING("testerrr"); */
+/*     switch(keycode) { */
+/*         case SLASHER: */
+/*             if ((keyboard_report->mods & MOD_BIT (KC_LSFT)) || (keyboard_report->mods & MOD_BIT (KC_RSFT))) { */
+/*                 if (record->event.pressed) { */
 /*                     // when keycode QMKBEST is pressed */
-/*                     /1* SEND_STRING(SS_LALT("ESC"); *1/ */
-/*                     /1* SEND_STRING(SS_LALT("F7")); *1/ */
-/*                     /1* SEND_STRING(SS_LALT("F7")); *1/ */
-/*             return false; break; */
-/*             case WIN_BACk: */
-/*                     // when keycode QMBEST is pressed */
-/*                     SEND_STRING(SS_LSFT(SS_LALT("ESC")) */
-/*                     /1* SEND_STRING(SS_LALT("F7")); *1/ */
-/*                     /1* SEND_STRING(SS_LALT("F7")); *1/ */
-                
-/*             break; */
-/*         } */
+/*                     register_code(KC_PIPE); */
+/*                     unregister_code(KC_PIPE); */
+/*                 } */ 
+/*                 break; */
+/*             } else { */
+/*                 if (record->event.pressed) { */
+/*                     // when keycode QMKBEST is pressed */
+/*                     register_code(KC_SLASH); */
+/*                     unregister_code(KC_SLASH); */
+/*                 } */ 
+/*                 break; */
+/*             } */
+/*         break; */
 /*     } */
-/*   return true; */
+/*     return true; */
+/* } */

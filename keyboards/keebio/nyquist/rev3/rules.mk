@@ -30,6 +30,7 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 LEADER_ENABLE = no
 TAP_DANCE_ENABLE=no
+COMBO_ENABLE = yes
 
 SPLIT_KEYBOARD = yes
 LAYOUTS = ortho_5x12 ortho_4x12
