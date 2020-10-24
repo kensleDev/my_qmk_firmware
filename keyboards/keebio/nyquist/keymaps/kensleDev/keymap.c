@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-
 enum layer_number {
     _QWERTY = 0,
     _LOWER,
@@ -27,6 +26,9 @@ enum layer_number {
 #define WIN_P LSFT(LALT(KC_ESC))
 #define WIN_C LGUI(KC_Q)
 
+#define SFT_Z LSFT_T(KC_Z)
+#define SFT_SLH LSFT_T(KC_SLSH)
+
 // combos
 enum combos {
   CO_TAB,
@@ -40,7 +42,7 @@ const uint16_t PROGMEM caps_combo[] = {KC_Q, KC_P, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
   [CO_TAB] = COMBO(tab_combo, KC_TAB),
   [CO_GUI] = COMBO(gui_combo, KC_LGUI),
-  [CO_CAPS] = COMBO(caps_combo, KC_LGUI)
+  [CO_CAPS] = COMBO(caps_combo, KC_CAPS)
 };
 
 
@@ -52,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
     XXXXXXX, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,   KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, XXXXXXX,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,   KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, XXXXXXX,
+    XXXXXXX, SFT_Z  , KC_X   , KC_C   , KC_V   , KC_B   ,   KC_N   , KC_M   , KC_COMM, KC_DOT , SFT_SLH, XXXXXXX,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
     XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT, LOWER  , CTLETR ,   NAV    , RAISE  , KC_LEAD, XXXXXXX, XXXXXXX, XXXXXXX
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
