@@ -45,7 +45,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [CO_CAPS] = COMBO(caps_combo, KC_CAPS)
 };
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_ortho_4x12( \
@@ -59,7 +58,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT, LOWER  , CTLETR ,   NAV    , RAISE  , KC_LEAD, XXXXXXX, XXXXXXX, XXXXXXX
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
 ),
-
 
 
 [_LOWER] = LAYOUT_ortho_4x12( \
@@ -97,8 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
     XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,   KC_BTN4, KC_BTN5, LAUNCH , XXXXXXX, XXXXXXX, XXXXXXX
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
-),
-
+), 
 
 }; 
 
