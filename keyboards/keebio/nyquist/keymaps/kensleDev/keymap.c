@@ -29,7 +29,79 @@ enum layer_number {
 #define SFT_Z LSFT_T(KC_Z)
 #define SFT_SLH LSFT_T(KC_SLSH)
 
-// combos
+// ------------------------------------------------ macros
+
+enum custom_keycodes  {
+    SEL0 = SAFE_RANGE,
+    SEL1,
+    SEL2,
+    SEL3,
+    SEL4,
+    SEL5,
+    SEL6,
+    SEL7,
+    SEL8,
+    SEL9
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SEL1: 
+            if (record->event.pressed) { 
+                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("e"))); 
+            }
+        break;
+        case SEL2: 
+            if (record->event.pressed) { 
+                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("a"))); 
+            }
+        break;
+        case SEL3: 
+            if (record->event.pressed) { 
+                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("o"))); 
+            }
+        break;
+        case SEL4: 
+            if (record->event.pressed) { 
+                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("g"))); 
+            }
+        break;
+        case SEL5: 
+            if (record->event.pressed) { 
+                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("d"))); 
+            }
+        break;
+        case SEL6: 
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q")); 
+            }
+        break;
+        case SEL7:
+            if (record->event.pressed) { 
+                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("w")); 
+            }
+        break;
+        case SEL8: 
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_TAP(X_ESCAPE) SS_TAP(X_SPACE) ); 
+            }
+        break;
+        case SEL9: 
+            if (record->event.pressed) { 
+               SEND_STRING(SS_LALT("q") SS_LCTL(SS_LSFT("f"))); 
+            }
+        break;
+        case SEL0: 
+            if (record->event.pressed) { 
+                SEND_STRING(SS_TAP(X_ESCAPE) SS_LCTL("p")); 
+            }
+        break;
+    };
+    return true;
+}
+
+/// ------------------------------------------------  combos
+
 enum combos {
   CO_TAB,
   CO_GUI,
@@ -45,6 +117,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [CO_CAPS] = COMBO(caps_combo, KC_CAPS)
 };
 
+/// ------------------------------------------------  keymaps
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_ortho_4x12( \
@@ -59,7 +133,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
 ),
 
-
 [_LOWER] = LAYOUT_ortho_4x12( \
 //┌────────┬────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┬────────┐
     XXXXXXX, KC_EXLM, KC_AT  , KC_HASH, KC_UNDS, KC_PERC,   KC_CIRC, KC_7   , KC_8   , KC_9   , KC_PLUS, XXXXXXX,
@@ -68,10 +141,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
     XXXXXXX, KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,   KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR, XXXXXXX,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,   _______, _______, KC_0,    XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,   _______, _______, KC_0   , XXXXXXX, XXXXXXX, XXXXXXX
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
 ),
-
 
 [_RAISE] = LAYOUT_ortho_4x12( \
 //┌────────┬────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┬────────┐
@@ -87,27 +159,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAV] = LAYOUT_ortho_4x12( \
 //┌────────┬────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┬────────┐
-    XXXXXXX, _______, _______, _______, _______, _______,   WIN_P  , KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
+    XXXXXXX, SEL1   , SEL2   , SEL3,    SEL4   , SEL5   ,   WIN_P  , KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, _______, _______, _______, _______, _______,   WIN_N  , KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
+    XXXXXXX, SEL6   , SEL7   , SEL8   , SEL9   , SEL0   ,   WIN_N  , KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, _______, _______, _______, _______, KC_DEL ,   WIN_C  , DTOP1,   DTOP2,   DTOP3,   DTOP4,   XXXXXXX,
+    XXXXXXX, _______, _______, _______, KC_DEL , _______,   WIN_C  , DTOP1,   DTOP2,   DTOP3,   DTOP4,   XXXXXXX,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,   KC_BTN4, KC_BTN5, LAUNCH , XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN4, KC_BTN5,   _______, _______, LAUNCH , XXXXXXX, XXXXXXX, XXXXXXX
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
 ), 
 
 }; 
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    
-  }
-  return true;
-}
-
-
+// Leader - Anything you can do in a macro.
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
