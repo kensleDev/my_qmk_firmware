@@ -1,7 +1,4 @@
-FROM qmkfm/base_container
-
-VOLUME /qmk_firmware
-WORKDIR /qmk_firmware
-COPY . .
-
-CMD make all:default
+FROM docker/whalesay:latest
+LABEL Name=myqmkfirmware Version=0.0.1
+RUN apt-get -y update && apt-get install -y fortunes
+CMD ["sh", "-c", "/usr/games/fortune -a | cowsay"]
