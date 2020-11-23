@@ -1,6 +1,6 @@
 RGBLIGHT_ENABLE = no
 BACKLIGHT_ENABLE = no
-LEADER_ENABLE = yes
+LEADER_ENABLE = no
 COMBO_ENABLE = yes
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
