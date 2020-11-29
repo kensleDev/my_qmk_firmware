@@ -25,6 +25,22 @@ enum layer_number {
 #define LAUNCH LCTL(KC_F7)
 
 
+// Window management
+#define W_FD A(KC_K)
+#define W_BK A(KC_J)
+#define W_SM A(KC_H)
+#define W_BG A(KC_L)
+#define W_TLE A(KC_T)
+#define W_X S(A(KC_C))
+#define W_PRM A(KC_M)
+#define W_SWP A(KC_ENTER)
+
+#define WL_RST A(KC_N)
+#define WL_FD A(KC_SPACE)
+#define WL_BK S(A(KC_SPACE))
+#define WL_MENU A(KC_P)
+
+
 
 /// ------------------------------------------------  combos
 
@@ -107,13 +123,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT_ortho_4x12( \
 //┌────────┬────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┬────────┐
-    XXXXXXX, RESET  , _______, _______, _______, _______,   _______, KC_7   , KC_8   , KC_9   , KC_PLUS, XXXXXXX,
+    XXXXXXX, W_X    , _______, W_SWP  , W_PRM  , _______,   _______, KC_7   , KC_8   , KC_9   , KC_PLUS, XXXXXXX,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, _______, _______, _______, _______, KC_TAB ,   _______, KC_4   , KC_5   , KC_6   , KC_MINS, XXXXXXX,
+    XXXXXXX, W_SM   , W_BK   , W_FD   , W_BG   , KC_TAB ,   _______, KC_4   , KC_5   , KC_6   , KC_MINS, XXXXXXX,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, _______, _______, _______, _______, KC_DEL ,   KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR, XXXXXXX,
+    XXXXXXX, WL_RST , WL_BK  , WL_FD  , WL_MENU, KC_DEL ,   KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR, XXXXXXX,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, XXXXXXX, XXXXXXX, MAC_KEY, _______, WIN_KEY,   _______, _______, KC_0   , XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX, XXXXXXX, XXXXXXX, MAC_KEY, _______, WIN_KEY,   _______, RESET  , KC_0   , XXXXXXX, XXXXXXX, XXXXXXX
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
 ),
 
