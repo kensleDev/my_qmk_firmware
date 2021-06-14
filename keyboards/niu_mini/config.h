@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+#define COMBO_COUNT 5
+#define COMBO_TERM 300
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6E6D
