@@ -31,17 +31,26 @@ enum layer_number {
 
 #define CTLETR MT(MOD_LCTL, KC_ENT)
 #define CTLESC MT(MOD_LCTL, KC_ESC)
-#define CMDETR MT(MOD_LGUI, KC_ENT)
-
 #define CTLBKWD MT(MOD_LCTL, DELWORD)
+
+#define CMDETR MT(MOD_LGUI, KC_ENT)
+#define CMDETRK G(KC_ENT)
+
+#define ALTTAB A(KC_TAB)
+#define ALTESC MT(MOD_LALT, KC_ESC)
 
 #define WINCLIP MT(MOD_LGUI, G(KC_V))
 
-#define ALTTAB A(KC_TAB)
 
-#define ALTESC MT(MOD_LALT, KC_ESC)
-
-
+#define P1 C(A(S(KC_1)))
+#define P2 C(A(S(KC_2)))
+#define P3 C(A(S(KC_3)))
+#define P4 C(A(S(KC_4)))
+#define P5 C(A(S(KC_5)))
+#define P6 C(A(S(KC_6)))
+#define P7 C(A(S(KC_7)))
+#define P8 C(A(S(KC_8)))
+#define P9 C(A(S(KC_9)))
 
 /// ------------------------------------------------  combos
 
@@ -97,11 +106,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_planck_mit( \
   //┌────────┬────────┬────────┬────────┬────────┬────────┌────────┬────────┬────────┬────────┬────────┬────────┐
-      XXXXXXX, D_MAIN , _______, _______, _______, _______, _______, KC_7   , KC_8   , KC_9   , KC_PLUS, XXXXXXX,
+      XXXXXXX, D_MAIN ,   P1   ,   P2   ,   P3   , CMDETRK, _______, KC_7   , KC_8   , KC_9   , KC_PLUS, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
-      XXXXXXX, D_MAC  , _______, _______, _______, KC_TAB , ALTTAB , KC_4   , KC_5   , KC_6   , KC_MINS, XXXXXXX,
+      XXXXXXX, D_MAC  ,   P4   ,   P5   ,   P6   , KC_TAB , ALTTAB , KC_4   , KC_5   , KC_6   , KC_MINS, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
-      XXXXXXX, _______, _______, _______, _______, KC_DEL , KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR, XXXXXXX,
+      XXXXXXX, _______,   P7   ,   P8   ,   P9   , KC_DEL , KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼─────────────────┼────────┼────────┼────────┼────────┼────────┤
       XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,     _______,      KC_0   , KC_EQL , XXXXXXX, XXXXXXX, XXXXXXX
   //└────────┴────────┴────────┴────────┴────────┴────────-────────┴────────┴────────┴────────┴────────┴────────┘
