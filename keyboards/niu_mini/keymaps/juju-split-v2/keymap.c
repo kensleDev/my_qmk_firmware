@@ -2,8 +2,9 @@
 enum layer_number {
     _WIN = 0,
     _MAC,
-    _LOWER,
-    _HIGHER,
+    _NUM,
+    _NAV,
+    _PUNC,
     _FUNCT,
     _GAME,
     _GAME_SHIFT,
@@ -14,39 +15,19 @@ enum layer_number {
 /// ------------------------------------------------  variables
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+#define FINGER KC_TRNS
 
-#define DELWORD A(KC_BSPC)
-
-#define LOWER LT(_LOWER, KC_BSPC)
-#define HIGHER LT(_HIGHER, KC_SPC)
-#define GFUNC LT(_FUNCT, KC_G)
+#define PUNC LT(_PUNC, KC_SPC)
+#define NAV LT(_NAV, KC_BSPC)
+#define H_FUNC LT(_FUNCT, KC_H)
+#define G_NUM LT(_NUM, KC_G)
 
 #define D_MAIN DF(_WIN)
 #define D_MAC DF(_MAC)
 
-#define D_FUNC TO(_FUNCT)
-#define D_LOW TO(_LOWER)
-
-
-// #define GME_SFT LT(_GAME_SHIFT, KC_M)
-#define SFT_Z LSFT_T(KC_Z)
-#define SFT_SLH LSFT_T(KC_SLSH)
-
-#define CTLETR MT(MOD_LCTL, KC_ENT)
-#define CTLESC MT(MOD_LCTL, KC_ESC)
-#define CTLBKWD MT(MOD_LCTL, DELWORD)
-
-#define CMDETR MT(MOD_LGUI, KC_ENT)
-#define CMDETRK G(KC_ENT)
-
-#define ALTTAB A(KC_TAB)
-#define ALTESC MT(MOD_LALT, KC_ESC)
-
-#define WINCLIP MT(MOD_LGUI, G(KC_V))
-
 #define LAUNCH G(KC_SLSH)
 
-
+// PROGRAMS 
 #define P1 C(A(S(KC_1)))
 #define P2 C(A(S(KC_2)))
 #define P3 C(A(S(KC_3)))
@@ -96,7 +77,6 @@ enum combos {
 const uint16_t PROGMEM tab_combo[] = {KC_L, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM gui_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM caps_combo[] = {KC_Q, KC_P, COMBO_END};
-const uint16_t PROGMEM backword_combo[] = {KC_G, KC_H, COMBO_END};
 const uint16_t PROGMEM esc_combo[] = {KC_F, KC_Q, COMBO_END};
 const uint16_t PROGMEM copy_combo[] = {KC_Q, KC_C, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {KC_Q, KC_V, COMBO_END};
@@ -106,14 +86,11 @@ combo_t key_combos[COMBO_COUNT] = {
   [CO_TAB] = COMBO(tab_combo, KC_TAB),
   [CO_GUI] = COMBO(gui_combo, KC_LGUI),
   [CO_CAPS] = COMBO(caps_combo, KC_CAPS),
-  [CO_DELW] = COMBO(backword_combo, DELWORD),
-
 };
 
 enum keycodes {
     CLEAR
 };
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -122,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┌────────┬────────┬────────┬────────┬────────┬────────┐
       KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , XXXXXXX, XXXXXXX, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,
   //├────────┼────────┼────────┼────────┼────────┼────────├────────┼────────┼────────┼────────┼────────┼────────┤
-      W_A    , W_S    , W_D    , W_F    , GFUNC  , XXXXXXX, XXXXXXX, KC_H   , W_J    , W_K    , W_L    , W_SC   ,
+      W_A    , W_S    , W_D    , W_F    , G_NUM  , XXXXXXX, XXXXXXX, H_FUNC , W_J    , W_K    , W_L    , W_SC   ,
   //├────────┼────────┼────────┼────────┼────────┼────────├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , XXXXXXX, XXXXXXX, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,
   //├────────┼────────┼────────┼────────┼────────┼────────-────────┼────────┼────────┼────────┼────────┼────────┤
-      XXXXXXX, XXXXXXX, _______, LOWER  , KC_ENT ,      LAUNCH     , KC_ESC , HIGHER , D_LOW  , XXXXXXX, XXXXXXX
+      XXXXXXX, XXXXXXX, KC_DEL , NAV    , KC_ENT ,      XXXXXXX    , KC_ESC , PUNC   , LAUNCH , XXXXXXX, XXXXXXX
   //└────────┴────────┴────────┴────────┴────────┴────────-────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 
@@ -134,47 +111,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┌────────┬────────┬────────┬────────┬────────┬────────┐
       KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , XXXXXXX, XXXXXXX, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,
   //├────────┼────────┼────────┼────────┼────────┼────────├────────┼────────┼────────┼────────┼────────┼────────┤
-      M_A    , M_S    , M_D    , M_F    , GFUNC  , XXXXXXX, XXXXXXX, KC_H   , M_J    , M_K    , M_L    , M_SC   , 
+      M_A    , M_S    , M_D    , M_F    , G_NUM  , XXXXXXX, XXXXXXX, H_FUNC , M_J    , M_K    , M_L    , M_SC   , 
   //├────────┼────────┼────────┼────────┼────────┼────────├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , XXXXXXX, XXXXXXX, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,
   //├────────┼────────┼────────┼────────┼────────┼────────-────────┼────────┼────────┼────────┼────────┼────────┤
-      XXXXXXX, XXXXXXX, _______, LOWER  , KC_ENT ,      LAUNCH     , KC_ESC , HIGHER ,  D_LOW , XXXXXXX, XXXXXXX
+      XXXXXXX, XXXXXXX, KC_DEL , NAV    , KC_ENT ,      XXXXXXX    , KC_ESC , PUNC   , LAUNCH , XXXXXXX, XXXXXXX
   //└────────┴────────┴────────┴────────┴────────┴────────-────────┴────────┴────────┴────────┴────────┴────────┘
   ),
  
-  [_LOWER] = LAYOUT_planck_mit( \
+  [_NUM] = LAYOUT_planck_mit( \
   //┌────────┬────────┬────────┬────────┬────────┬────────┌────────┬────────┬────────┬────────┬────────┬────────┐
-      D_MAIN ,   P1   ,   P2   ,   P3   , CMDETRK, XXXXXXX, XXXXXXX, _______, KC_7   , KC_8   , KC_9   , KC_PLUS,
+      D_MAIN , _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_7   , KC_8   , KC_9   , KC_PLUS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
-      D_MAC  ,   P4   ,   P5   ,   P6   , KC_TAB , XXXXXXX, XXXXXXX, ALTTAB , KC_4   , KC_5   , KC_6   , KC_MINS, 
+      D_MAC  , _______, _______, _______, FINGER , XXXXXXX, XXXXXXX, KC_TAB , KC_4   , KC_5   , KC_6   , KC_MINS, 
   //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
-      _______,   P7   ,   P8   ,   P9   , KC_DEL , XXXXXXX, XXXXXXX, KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR,
+      _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR,
   //├────────┼────────┼────────┼────────┼────────┼─────────────────┼────────┼────────┼────────┼────────┼────────┤
-      XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,     CLEAR       , KC_DOT , KC_0   , _______, XXXXXXX, XXXXXXX
+      XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,     XXXXXXX     , KC_DOT , KC_0   , _______, XXXXXXX, XXXXXXX
   //└────────┴────────┴────────┴────────┴────────┴────────-────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 
-  [_HIGHER] = LAYOUT_planck_mit( \
+  [_NAV] = LAYOUT_planck_mit( \
   //┌────────┬────────┬────────┬────────┬────────┬────────┐────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_EXLM, KC_AT  , KC_HASH, KC_UNDS, KC_PERC, XXXXXXX, XXXXXXX, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END ,
+      _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, P1     , KC_HOME, KC_PGDN, KC_PGUP, KC_END ,
   //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_QUES, KC_GRV , KC_DQUO, KC_QUOT, KC_CIRC, XXXXXXX, XXXXXXX, KC_DLR , KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, 
+      _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, P2     , KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, 
   //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR, XXXXXXX, XXXXXXX, KC_BSLS, KC_RPRN, KC_RCBR, KC_RCBR, KC_TILD, 
+      _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, P3     , P4     , P5     , P6     , P7     ,
   //├────────┼────────┼────────┼────────┼────────┼─────────────────┼────────┼────────┼────────┼────────┼────────┤
-      XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN4,     CLEAR       , RESET  , _______, XXXXXXX, XXXXXXX, XXXXXXX
+      XXXXXXX, XXXXXXX, XXXXXXX, FINGER , _______,     XXXXXXX     , RESET  , _______, XXXXXXX, XXXXXXX, XXXXXXX
+  //└────────┴────────┴────────┴────────┴────────┴─────────────────┴────────┴────────┴────────┴────────┴────────┘
+  ),
+
+  [_PUNC] = LAYOUT_planck_mit( \
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐────────┬────────┬────────┬────────┬────────┬────────┐
+      KC_EXLM, KC_AT  , KC_HASH, KC_UNDS, KC_PERC, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
+      KC_QUES, KC_GRV , KC_DQUO, KC_QUOT, KC_CIRC, XXXXXXX, XXXXXXX, KC_DLR , _______, _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
+      KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR, XXXXXXX, XXXXXXX, KC_BSLS, KC_RPRN, KC_RCBR, KC_RBRC, KC_TILD,
+  //├────────┼────────┼────────┼────────┼────────┼─────────────────┼────────┼────────┼────────┼────────┼────────┤
+      XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN4,     XXXXXXX     , RESET  , FINGER , XXXXXXX, XXXXXXX, XXXXXXX
   //└────────┴────────┴────────┴────────┴────────┴─────────────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 
   [_FUNCT] = LAYOUT_planck_mit( \
   //┌────────┬────────┬────────┬────────┬────────┬────────┐────────┬────────┬────────┬────────┬────────┬────────┐
-      _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_F7  , KC_F8  , KC_F9  , KC_F10 , 
+      KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_F4  , KC_F5  , KC_F6  , KC_F11 , 
+      KC_F4  , KC_F5  , KC_F6  , KC_F11 , _______, XXXXXXX, XXXXXXX, FINGER , _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_F1  , KC_F2  , KC_F3  , KC_F12 ,
+      KC_F1  , KC_F2  , KC_F3  , KC_F12 , _______, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼─────────────────┼────────┼────────┼────────┼────────┼────────┤
-      XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,     CLEAR       , _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
+      XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,     XXXXXXX     , _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
   //└────────┴────────┴────────┴────────┴────────┴─────────────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 

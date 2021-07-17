@@ -1,226 +1,225 @@
 #include QMK_KEYBOARD_H
-
 enum layer_number {
-    _QWERTY = 0,
-    _LOWER,
-    _RAISE,
-    _NAV
+    _WIN = 0,
+    _MAC,
+    _NUM,
+    _NAV,
+    _PUNC,
+    _FUNCT,
+    _GAME,
+    _GAME_SHIFT,
+    _STREAM
 };
 
-// Fillers to make layering more clear
-#define LOWER LT(_LOWER, KC_BSPC)
-#define RAISE LT(_RAISE, KC_SPC)
-#define NAV LT(_NAV, KC_ESC)
-#define CTLETR MT(MOD_LCTL, KC_ENT)
+/// ------------------------------------------------  variables
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+#define FINGER KC_TRNS
+#define I_ DF(KC_TRNS)
+#define _I DF(KC_TRNS)
 
-#define DTOP1 LGUI(KC_1)
-#define DTOP2 LGUI(KC_2)
-#define DTOP3 LGUI(KC_3)
-#define DTOP4 LGUI(KC_4)
 
-#define LAUNCH LCTL(KC_F7)
+#define PUNC LT(_PUNC, KC_SPC)
+#define NAV LT(_NAV, KC_BSPC)
+#define H_FUNC LT(_FUNCT, KC_H)
+#define G_NUM LT(_NUM, KC_G)
 
-#define WIN_N LALT(KC_ESC)
-#define WIN_P LSFT(LALT(KC_ESC))
-#define WIN_C LGUI(KC_Q)
+#define D_MAIN DF(_WIN)
+#define D_MAC DF(_MAC)
 
-#define SFT_Z LSFT_T(KC_Z)
-#define SFT_SLH LSFT_T(KC_SLSH)
+#define LAUNCH G(KC_SLSH)
 
-// ------------------------------------------------ macros
+// PROGRAMS 
+#define P1 C(A(S(KC_1)))
+#define P2 C(A(S(KC_2)))
+#define P3 C(A(S(KC_3)))
+#define P4 C(A(S(KC_4)))
+#define P5 C(A(S(KC_5)))
+#define P6 C(A(S(KC_6)))
+#define P7 C(A(S(KC_7)))
+#define P8 C(A(S(KC_8)))
+#define P9 C(A(S(KC_9)))
 
-enum custom_keycodes  {
-    SEL10 = SAFE_RANGE,
-    SEL1,
-    SEL2,
-    SEL3,
-    SEL4,
-    SEL5,
-    SEL6,
-    SEL7,
-    SEL8,
-    SEL9,
-    SEL11,
-    SEL12,
-    SEL13,
-    SEL14
-};
+// Left-hand home row mods
+#define W_A LGUI_T(KC_A)
+#define W_S LALT_T(KC_S)
+#define W_D LSFT_T(KC_D)
+#define W_F LCTL_T(KC_F)
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case SEL1:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("e")));
-            }
-        break;
-        case SEL2:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("a")));
-            }
-        break;
-        case SEL3:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("k")));
-            }
-        break;
-        case SEL4:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("g")));
-            }
-        break;
-        case SEL5:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_LCTL(SS_LSFT("d")));
-            }
-        break;
-        case SEL6:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q"));
-            }
-        break;
-        case SEL7:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("w"));
-            }
-        break;
-        case SEL8:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LALT("q") SS_TAP(X_ESCAPE) SS_TAP(X_SPACE) );
-            }
-        break;
-        case SEL9:
-            if (record->event.pressed) {
-               SEND_STRING(SS_LALT("q") SS_LCTL(SS_LSFT("h")));
-            }
-        break;
-        case SEL10:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LCTL("i"));
-            }
-        break;
-        case SEL11:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LCTL(SS_LSFT("o")));
-            }
-        break;
-        case SEL12:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LCTL(SS_LSFT("p")));
-            }
-        break;
-        case SEL13:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LCTL("p"));
-            }
-        break;
-        case SEL14:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_ESCAPE) SS_LCTL("i"));
-            }
-        break;
-    };
-    return true;
-}
+// Right-hand home row mods
+#define W_J RCTL_T(KC_J)
+#define W_K LSFT_T(KC_K)
+#define W_L LALT_T(KC_L)
+#define W_SC RGUI_T(KC_SCLN)
 
+
+// Left-hand home row mods
+#define M_A LCTL_T(KC_A)
+#define M_S LALT_T(KC_S)
+#define M_D LSFT_T(KC_D)
+#define M_F LGUI_T(KC_F)
+
+// Right-hand home row mods
+#define M_J RGUI_T(KC_J)
+#define M_K LSFT_T(KC_K)
+#define M_L LALT_T(KC_L)
+#define M_SC RCTL_T(KC_SCLN)
 /// ------------------------------------------------  combos
 
 enum combos {
-  CO_TAB,
-  CO_GUI,
   CO_CAPS
 };
-const uint16_t PROGMEM tab_combo[] = {KC_L, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM gui_combo[] = {KC_COMM, KC_DOT, COMBO_END};
+
 const uint16_t PROGMEM caps_combo[] = {KC_Q, KC_P, COMBO_END};
 
+
 combo_t key_combos[COMBO_COUNT] = {
-  [CO_TAB] = COMBO(tab_combo, KC_TAB),
-  [CO_GUI] = COMBO(gui_combo, KC_LGUI),
-  [CO_CAPS] = COMBO(caps_combo, KC_CAPS)
+  [CO_CAPS] = COMBO(caps_combo, KC_CAPS),
 };
+
+enum keycodes {
+    CLEAR
+};
+
+
+// ------ ------------------------------------------ macros
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    switch (keycode) {
+
+        case CLEAR:
+        if (record->event.pressed) {
+            layer_clear();
+
+        }
+        break;
+
+        case D_MAIN:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_WIN);
+            }
+            return false;
+        break;
+        case D_MAC:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_MAC);
+            }
+            return false;
+        break;
+   };
+   return true;
+}
+
 
 /// ------------------------------------------------  keymaps
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_QWERTY] = LAYOUT( \
+[_WIN] = LAYOUT( \
 //┌────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┐
-_______,    KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,   KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , _______, 
+I_, KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,   KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,_I,
 //├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-_______,    KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,   KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, _______,
+I_, W_A    , W_S    , W_D    , W_F    , G_NUM  ,   H_FUNC , W_J    , W_K    , W_L    , W_SC   ,_I,
 //├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-_______,    SFT_Z  , KC_X   , KC_C   , KC_V   , KC_B   ,   KC_N   , KC_M   , KC_COMM, KC_DOT , SFT_SLH, _______,
-//├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
- 	              _______, LOWER  , CTLETR ,   NAV    , RAISE  , KC_LEAD
-//		    └────────┴────────┴────────┘ └────────┴────────┴────────┘
+I_, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,   KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,_I,
+//└─-──────┴─-──────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┴────────┘
+ 	                  KC_DEL , NAV    , KC_ENT ,   KC_ESC , PUNC   , LAUNCH 
+//		            └────────┴────────┴────────┘ └────────┴────────┴────────┘
 ),
 
-[_LOWER] = LAYOUT( \
+[_MAC] = LAYOUT( \
 //┌────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┐
-_______,    KC_EXLM, KC_AT  , KC_HASH, KC_UNDS, KC_PERC,   KC_CIRC, KC_7   , KC_8   , KC_9   , KC_PLUS, _______,
+I_, KC_EXLM, KC_AT  , KC_HASH, KC_UNDS, KC_PERC,   KC_CIRC, KC_7   , KC_8   , KC_9   , KC_PLUS,_I,
 //├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-_______,    KC_QUES, KC_GRV , KC_DQUO, KC_QUOT, KC_CIRC,   KC_DLR , KC_4   , KC_5   , KC_6   , KC_MINS, _______,
+I_, KC_QUES, KC_GRV , KC_DQUO, KC_QUOT, KC_CIRC,   KC_DLR , KC_4   , KC_5   , KC_6   , KC_MINS,_I,
 //├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-_______,    KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,   KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR,  _______,
-//├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-		      _______, _______, _______,   _______, _______, KC_0  
-//	            └────────┴────────┴────────┘ └────────┴────────┴────────┘
+I_, KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,   KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR,_I,
+//└────────┴────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┴───-────┘
+                      KC_DEL , NAV    , KC_ENT ,   KC_ESC , PUNC   , LAUNCH 
+//	                └────────┴────────┴────────┘ └────────┴────────┴────────┘
 //
 ),
 
-[_RAISE] = LAYOUT( \
+[_NUM] = LAYOUT( \
 //┌────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┐
-_______,    RESET  , _______, KC_F10 , KC_F11 , KC_F12 ,   _______, KC_BTN1, KC_BTN2, _______, _______, _______,
+I_, KC_EXLM, KC_AT  , KC_HASH, KC_UNDS, KC_PERC,   KC_CIRC, KC_7   , KC_8   , KC_9   , KC_PLUS,_I,
 //├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-_______,    _______, _______, KC_F7  , KC_F8  , KC_F9  ,   _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
+I_, KC_QUES, KC_GRV , KC_DQUO, KC_QUOT, KC_CIRC,   KC_DLR , KC_4   , KC_5   , KC_6   , KC_MINS,_I,
 //├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-_______,    _______, _______, KC_F4  , KC_F5  , KC_F6  ,   _______, KC_RPRN, KC_RCBR, KC_RCBR, KC_TILD, _______,
-//├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-		      KC_F1  , KC_F2  , KC_F3  ,   _______, _______, _______
-//                  └────────┴────────┴────────┘ └────────┴────────┴────────┘
+I_, KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,   KC_EQL , KC_1   , KC_2   , KC_3   , KC_ASTR,_I,
+//└────────┴────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┴────────┘
+                      KC_DEL , NAV    , KC_ENT ,   KC_ESC , PUNC   , LAUNCH 
+//	                └────────┴────────┴────────┘ └────────┴────────┴────────┘
+//
 ),
+
 
 [_NAV] = LAYOUT( \
 //┌────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┐
-_______,    SEL1   , SEL2   , SEL3,    SEL4   , SEL5   ,   WIN_P  , KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,
+I_, _______, _______, _______, _______, _______,   P1     , KC_HOME, KC_PGDN, KC_PGUP, KC_END ,_I,
 //├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-_______,    SEL6   , SEL7   , SEL8   , SEL9   , SEL10  ,   WIN_N  , KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
+I_, _______, _______, _______, _______, _______,   P2     , KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,_I,
 //├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-_______,    SEL11  , SEL12  , SEL13  , KC_DEL , SEL14  ,   WIN_C  , DTOP1  , DTOP2  , DTOP3  , DTOP4  , _______,
-//├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
-            _______, KC_BTN4, KC_BTN5,   _______, _______, LAUNCH 
-//		    └────────┴────────┴────────┘ └────────┴────────┴────────┘
+I_, _______, _______, _______, _______, _______,   P3     , P4     , P5     , P6     , P7     ,_I,
+//└────────┴────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┴────────┘
+                      _______, FINGER , _______,   _______, _______, XXXXXXX
+//	                └────────┴────────┴────────┘ └────────┴────────┴────────┘
+//
 ),
+
+[_PUNC] = LAYOUT( \
+//┌────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┐
+I_, KC_EXLM, KC_AT  , KC_HASH, KC_UNDS, KC_PERC,   _______, _______, _______, _______, _______,_I,
+//├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
+I_, KC_QUES, KC_GRV , KC_DQUO, KC_QUOT, KC_CIRC,   KC_DLR , _______, _______, _______, _______,_I,
+//├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
+I_, KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,   KC_BSLS, KC_RPRN, KC_RCBR, KC_RBRC, KC_TILD,_I,
+//└────────┴────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┴────────┘
+                      _______, _______, KC_BTN4,   RESET  , FINGER , _______
+//	                └────────┴────────┴────────┘ └────────┴────────┴────────┘
+//
+),
+
+[_FUNCT] = LAYOUT( \
+//┌────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┐
+I_, KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______,   _______, _______, _______, _______, _______,_I,
+//├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
+I_, KC_F4  , KC_F5  , KC_F6  , KC_F11 , _______,   FINGER , _______, _______, _______, _______,_I,
+//├────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┤
+I_, KC_F1  , KC_F2  , KC_F3  , KC_F12 , _______,   _______, _______, _______, _______, _______,_I,
+//└────────┴────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┴────────┘
+                      _______, _______, _______,   _______, _______, _______
+//	                └────────┴────────┴────────┘ └────────┴────────┴────────┘
+//
+)
 
 };
 
 
-// Leader - Anything you can do in a macro.
-LEADER_EXTERNS();
+// // Leader - Anything you can do in a macro.
+// LEADER_EXTERNS();
 
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
+// void matrix_scan_user(void) {
+//   LEADER_DICTIONARY() {
+//     leading = false;
+//     leader_end();
 
-    SEQ_ONE_KEY(KC_SLSH) {
-      // Anything you can do in a macro.
-      SEND_STRING("\\");
+//     SEQ_ONE_KEY(KC_SLSH) {
+//       // Anything you can do in a macro.
+//       SEND_STRING("\\");
 
-    }
-    // SEQ_TWO_KEYS(KC_D, KC_D) {
-    //   SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
-    // }
-    // SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
-    //   SEND_STRING("https://start.duckduckgo.com\n");
-    // }
-    // SEQ_TWO_KEYS(KC_A, KC_S) {
-    //   register_code(KC_LGUI);
-    //   register_code(KC_S);
-    //   unregister_code(KC_S);
-    //   unregister_code(KC_LGUI);
-    // }
-  }
-}
+//     }
+//     // SEQ_TWO_KEYS(KC_D, KC_D) {
+//     //   SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
+//     // }
+//     // SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
+//     //   SEND_STRING("https://start.duckduckgo.com\n");
+//     // }
+//     // SEQ_TWO_KEYS(KC_A, KC_S) {
+//     //   register_code(KC_LGUI);
+//     //   register_code(KC_S);
+//     //   unregister_code(KC_S);
+//     //   unregister_code(KC_LGUI);
+//     // }
+//   }
+// }

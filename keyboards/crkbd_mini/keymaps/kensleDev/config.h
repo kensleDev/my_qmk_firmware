@@ -3,7 +3,6 @@ This is the c configuration file for the keymap
 
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
-Copyright 2018 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,13 +20,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// #define USE_I2C
+//#define USE_MATRIX_I2C
 
 /* Select hand configuration */
+
+#define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define LEADER_TIMEOUT 300
+#define SSD1306OLED
 
-#define COMBO_TERM 200
-#define COMBO_COUNT 3
+#define USE_SERIAL_PD2
+
+
+#ifdef RGBLIGHT_ENABLE
+    #undef RGBLED_NUM
+    #define RGBLIGHT_ANIMATIONS
+    #define RGBLED_NUM 27
+    #define RGBLIGHT_LIMIT_VAL 120
+    #define RGBLIGHT_HUE_STEP 10
+    #define RGBLIGHT_SAT_STEP 17
+    #define RGBLIGHT_VAL_STEP 17
+#endif
+
+
+#define COMBO_COUNT 1
+#define COMBO_TERM 300
+
+
+// Configure the global tapping term (default: 200ms)
+#define TAPPING_TERM 220
+
+// Prevent normal rollover on alphas from accidentally triggering mods.
+#define IGNORE_MOD_TAP_INTERRUPT
+
+// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
+#define TAPPING_FORCE_HOLD
+
+// Apply the modifier on keys that are tapped during a short hold of a modtap
+#define PERMISSIVE_HOLD
